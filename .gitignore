@@ -1,3 +1,18 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# Unignore Makefile
+!Makefile
+
+# Unignore configure
+!configure
+
 # Prerequisites
 *.d
 
@@ -50,3 +65,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# personal
+.DS_Store
+.vscode

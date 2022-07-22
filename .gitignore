@@ -69,3 +69,4 @@ dkms.conf
 # personal
 .DS_Store
 .vscode
+.idea/

@@ -61,6 +61,14 @@ $(LIBFT):
 run:			all
 				./$(NAME)
 
+norm:
+				@printf $(CYAN)"Checking Norminette on $(dir $(LIBFT))\n"$(RESET)
+				@printf "norminette $(dir $(LIBFT))\n"
+				@norminette $(dir $(LIBFT)) | grep Error | egrep --color '.*Error!|$$' || true
+				@printf $(CYAN)"Checking Norminette on $(DIR_SRC)\n"$(RESET)
+				@printf "norminette $(DIR_SRC)\n"
+				@norminette $(DIR_SRC) | grep Error | egrep --color '.*Error!|$$' || true
+
 clean:
 				@rm -rf $(DIR_OBJ)
 				@$(MAKE) --directory $(dir $(MLX)) clean
@@ -75,7 +83,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re run
+.PHONY:			all clean fclean re run norm
 
 # text modifiers #
 RED =				"\e[31m"

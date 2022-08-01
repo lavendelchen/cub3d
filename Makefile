@@ -34,7 +34,8 @@ MLX_FLAGS	=		$(DIR_LIB)MLX42/libmlx42.a -lglfw -L /Users/$(USER)/.brew/opt/glfw/
 #endif
 
 SRC			=		$(DIR_SRC)main.c \
-					$(DIR_SRC)other_function.c
+					$(DIR_SRC)other_function.c \
+					$(DIR_SRC)rgba.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_INC)libft/libft.a
 

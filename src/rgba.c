@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   rgba.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* mlx library */
-#include "../lib/MLX42/include/MLX42/MLX42.h"
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <memory.h>
-
-int32_t	main(void);
-void    do_sth(void);
-int     rgba(int r, int g, int b, int a);
+int rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}

@@ -69,7 +69,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re run
 
 #text modifiers#
 RED =				"\e[31m"

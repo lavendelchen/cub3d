@@ -54,6 +54,9 @@ $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
 $(MLX):
 				@$(MAKE) --silent --directory $(dir $(MLX))
 
+run:			all
+				./$(NAME)
+
 clean:
 				@rm -rf $(DIR_OBJ)
 				@$(MAKE) --directory $(dir $(MLX)) clean

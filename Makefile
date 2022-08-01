@@ -20,6 +20,7 @@ DIR_LIB		=		./lib/
 CC			=		cc
 CC_FLAGS	=		-Wall -Wextra -Werror -g
 MLX_FLAGS	=		$(DIR_LIB)MLX42/libmlx42.a -lglfw -L $(shell brew --prefix glfw)/lib
+LIBFT_FLAGS =		$(LIBFT)
 
 #OS := $(shell uname)
 #ifeq ($(OS), Darwin)
@@ -37,13 +38,13 @@ SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)other_function.c \
 					$(DIR_SRC)rgba.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
-LIBFT		=		$(DIR_INC)libft/libft.a
+LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
-all:			$(MLX) $(NAME)
+all:			$(MLX) $(LIBFT) $(NAME)
 
 $(NAME):		$(OBJ)
-				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
+				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
 				@printf $(CYAN)"$(NAME) created\n"$(RESET)
 
 $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
@@ -54,17 +55,22 @@ $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
 $(MLX):
 				@$(MAKE) --silent --directory $(dir $(MLX))
 
+$(LIBFT):
+				@$(MAKE) --silent --directory $(dir $(LIBFT))
+
 run:			all
 				./$(NAME)
 
 clean:
 				@rm -rf $(DIR_OBJ)
 				@$(MAKE) --directory $(dir $(MLX)) clean
+				@$(MAKE) --silent --directory $(dir $(LIBFT)) clean
 				@printf $(RED)"Object files removed\n"$(RESET)
 
 fclean:			clean
 				@rm -rf $(NAME)
 				@$(MAKE) --directory $(dir $(MLX)) fclean
+				@$(MAKE) --silent --directory $(dir $(LIBFT)) fclean
 				@printf $(RED)"$(NAME) removed\n"$(RESET)
 
 re:				fclean all

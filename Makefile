@@ -19,7 +19,7 @@ DIR_LIB		=		./lib/
 
 CC			=		cc
 CC_FLAGS	=		-Wall -Wextra -Werror -g
-MLX_FLAGS	=		$(DIR_LIB)MLX42/libmlx42.a -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/
+MLX_FLAGS	=		$(DIR_LIB)MLX42/libmlx42.a -lglfw -L $(shell brew --prefix glfw)/lib
 
 #OS := $(shell uname)
 #ifeq ($(OS), Darwin)

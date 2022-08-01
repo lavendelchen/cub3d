@@ -38,8 +38,9 @@ SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_INC)libft/libft.a
+MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
-all:			$(NAME)
+all:			$(MLX) $(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
@@ -50,12 +51,17 @@ $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
 				@$(CC) $(CC_FLAGS) -c $< -o $@
 				@printf "$(notdir $<) compiled\n"
 
+$(MLX):
+				@$(MAKE) --silent --directory $(dir $(MLX))
+
 clean:
 				@rm -rf $(DIR_OBJ)
+				@$(MAKE) --directory $(dir $(MLX)) clean
 				@printf $(RED)"Object files removed\n"$(RESET)
 
 fclean:			clean
 				@rm -rf $(NAME)
+				@$(MAKE) --directory $(dir $(MLX)) fclean
 				@printf $(RED)"$(NAME) removed\n"$(RESET)
 
 re:				fclean all

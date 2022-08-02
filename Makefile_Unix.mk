@@ -33,12 +33,12 @@ all:			$(MLX) $(LIBFT) $(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
-				@echo $(BOLD)"\e[91mc\e[95mu\e[94mb\e[96m3\e[92md \e[93mc\e[91mr\e[95me\e[94ma\e[96mt\e[92me\e[93md\e[93m!"$(RESET)
+				@printf $(BOLD)"\e[91mc\e[95mu\e[94mb\e[96m3\e[92md \e[93mc\e[91mr\e[95me\e[94ma\e[96mt\e[92me\e[93md\e[93m!\n"$(RESET)
 
 $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
 				@mkdir -p $(dir $@)
 				@$(CC) $(CC_FLAGS) -c $< -o $@
-				@echo "$(notdir $<) compiled"
+				@printf "$(notdir $<) compiled\n"
 
 $(MLX):
 				@$(MAKE) --silent --directory $(dir $(MLX))
@@ -50,24 +50,24 @@ run:			all
 				./$(NAME)
 
 norm:
-				@echo $(CYAN)"Checking Norminette on $(dir $(LIBFT))"$(RESET)
-				@echo "norminette $(dir $(LIBFT))"
+				@printf $(CYAN)"Checking Norminette on $(dir $(LIBFT))\n"$(RESET)
+				@printf "norminette $(dir $(LIBFT))\n"
 				@norminette $(dir $(LIBFT)) | grep Error | egrep --color '.*Error!|$$' || true
-				@echo $(CYAN)"Checking Norminette on $(DIR_SRC)"$(RESET)
-				@echo "norminette $(DIR_SRC)"
+				@printf $(CYAN)"Checking Norminette on $(DIR_SRC)\n"$(RESET)
+				@printf "norminette $(DIR_SRC)\n"
 				@norminette $(DIR_SRC) | grep Error | egrep --color '.*Error!|$$' || true
 
 clean:
 				@rm -rf $(DIR_OBJ)
 				@$(MAKE) --directory $(dir $(MLX)) clean
 				@$(MAKE) --silent --directory $(dir $(LIBFT)) clean
-				@echo $(RED)"$(NAME) object files removed"$(RESET)
+				@printf $(RED)"$(NAME) object files removed\n"$(RESET)
 
 fclean:			clean
 				@rm -rf $(NAME)
 				@$(MAKE) --directory $(dir $(MLX)) fclean
 				@$(MAKE) --silent --directory $(dir $(LIBFT)) fclean
-				@echo $(RED)"$(NAME) removed"$(RESET)
+				@printf $(RED)"$(NAME) removed\n"$(RESET)
 
 re:				fclean all
 

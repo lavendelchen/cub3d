@@ -50,37 +50,29 @@ UP = "\033[A"
 CUT = "\033[K"
 
 all: $(NAME)
-	@printf "\n"
-	@echo $(G)" __    _ _   ___ _   "
-	@echo $(G)"|  |  |_| |_|  _| |_ "
-	@echo $(G)"|  |__| | . |  _|  _|"
-	@echo $(G)"|_____|_|___|_| |_|  "$(X)
-	@printf "\n\n"
 
 $(NAME): $(OBJ_IO) $(OBJ_LST) $(OBJ_MEM) $(OBJ_RW) $(OBJ_STRING) $(OBJ_UTILS)
 	@mkdir -p lib
-	@echo $(Y)Compiling [$(NAME)]...$(X)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJ_IO) $(OBJ_LST) $(OBJ_MEM) $(OBJ_RW) $(OBJ_STRING) $(OBJ_UTILS)
 	@cp $(NAME) ./libft.a
-	@printf $(UP)$(CUT)
-	@echo $(G)Finished [$(NAME)]...$(X)
+	@printf $(B)"\e[1m$(notdir $(NAME)) created\n"$(X)
 
 $(OBJ_DIR)/%.o: ./src/*/%.c
-	@echo $(Y)Compiling [$@]...$(X)
 	@mkdir -p obj
 	@$(CC) $(CCFLAGS) -I ./include -o $@ -c $<
-	@printf $(UP)$(CUT)
+	@printf $(B)"$(notdir $<) compiled\n"$(X)
 
 clean:
 	@if [ -d "${OBJ_DIR}" ]; then \
 		rm -r ${OBJ_DIR}; \
-		echo $(R)Cleaning"  "[$(OBJ_DIR)]...$(X); \
+		printf $(R)"$(notdir $(NAME)) object files removed\n"$(X); \
 	fi \
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 		rm -r $(NAME); \
-		echo $(R)Cleaning" "[$(NAME)]...$(X); \
+		rm ./libft.a; \
+		printf $(R)"$(notdir $(NAME)) removed\n"$(X); \
 	fi \
 
 re: fclean all

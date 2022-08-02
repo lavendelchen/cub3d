@@ -45,7 +45,7 @@ all:			$(MLX) $(LIBFT) $(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
-				@printf $(CYAN)"$(NAME) created\n"$(RESET)
+				@printf $(BOLD)"\e[91mc\e[95mu\e[94mb\e[96m3\e[92md \e[93mc\e[91mr\e[95me\e[94ma\e[96mt\e[92me\e[93md\e[93m!\n"$(RESET)
 
 $(DIR_OBJ)%.o:	$(DIR_SRC)%.c
 				@mkdir -p $(dir $@)
@@ -73,7 +73,7 @@ clean:
 				@rm -rf $(DIR_OBJ)
 				@$(MAKE) --directory $(dir $(MLX)) clean
 				@$(MAKE) --silent --directory $(dir $(LIBFT)) clean
-				@printf $(RED)"Object files removed\n"$(RESET)
+				@printf $(RED)"$(NAME) object files removed\n"$(RESET)
 
 fclean:			clean
 				@rm -rf $(NAME)
@@ -85,7 +85,7 @@ re:				fclean all
 
 .PHONY:			all clean fclean re run norm
 
-#text modifiers#
+# text modifiers #
 RED =				"\e[31m"
 GREEN =				"\e[32m"
 YELLOW =			"\e[33m"

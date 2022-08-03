@@ -41,6 +41,8 @@ int	parser(
 		return (print_error_return(ARG_NULL_ERROR, 1));
 	if (!is_readable_file(scene_file_path))
 		return (print_error_return(NON_READABLE_FILE_ERROR, 1));
+	if (!has_valid_map(scene_file_path))
+		return (print_error_return(INVALID_MAP_ERROR, 1));
 	scene_file_content = get_scene_file_content(scene_file_path);
 	if (scene_file_content == NULL)
 		return (print_error_return(ALLOC_ERROR, 1));

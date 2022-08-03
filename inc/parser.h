@@ -16,6 +16,7 @@
 # define ALLOC_ERROR "Error\nAllocation Error\n"
 # define ARG_NULL_ERROR "Error\nArgument is NULL\n"
 # define NON_READABLE_FILE_ERROR "Error\nFile is not existent / readable\n"
+# define INVALID_MAP_ERROR "Error\nInvalid Map in .cub file\n"
 # define INVALID_IDENTIFIER_ERROR "Error\nInvalid Identifier in .cub file\n"
 # define INVALID_COLOR_ERROR "Error\nInvalid Color in .cub file\n"
 # define INVALID_MAP_ERROR "Error\nInvalid Map in .cub file\n"
@@ -30,5 +31,6 @@ int		get_scene_description_from_content(
 			char **scene_file_content, t_scene_description *scene_description);
 bool	is_empty_line(const char *line);
 int 	print_error_return(const char *error_message, int return_code);
+bool	has_valid_map(const char *scene_file_path);
 
 #endif

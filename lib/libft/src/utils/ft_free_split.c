@@ -16,7 +16,7 @@
  * Frees allocated array returned by ft_split function.
  * Assumes that ft_split successfully split the string.
 */
-void	ft_free_split(char **split)
+void	*ft_free_split(char **split)
 {
 	int	i;
 
@@ -27,4 +27,5 @@ void	ft_free_split(char **split)
 		i++;
 	}
 	free(split);
+	return (NULL);
 }

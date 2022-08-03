@@ -17,7 +17,10 @@ int	main(int argc, const char *argv[])
 	t_scene_description	scene_description;
 
 	if (argc != 2)
+	{
+		ft_putstr_fd("Error\nOne Argument Needed\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
+	}
 	if (parser(argv[1], &scene_description) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

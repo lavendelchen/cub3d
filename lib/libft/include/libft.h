@@ -102,6 +102,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(const char *s, char c);
+char	**ft_split_set(char *str, char *set);
+int		ft_str_arr_len(char **arr);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strdup(const char *str);
@@ -115,7 +117,7 @@ int		ft_chrcount(const char *str, char ch);
 /* UTILS */
 int		ft_hexnbrlen(unsigned long long nbr);
 int		ft_nbrlen(long nbr);
-void	ft_free_split(char **split);
+void	*ft_free_split(char **split);
 void	*ft_free(void **p);
 
 #endif

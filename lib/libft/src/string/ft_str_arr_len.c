@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   other_function.c                                   :+:      :+:    :+:   */
+/*   ft_str_arr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/07/11 17:33:31 by shaas            ###   ########.fr       */
+/*   Created: 2021/10/28 20:56:50 by tblaase           #+#    #+#             */
+/*   Updated: 2021/11/02 16:25:41 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-void    do_sth(void)
+/*
+returns the size of an nullterminated array of strings
+*/
+int	ft_str_arr_len(char **arr)
 {
-    int i = 1;
-    i++;
-    return ;
+	int	i;
+
+	i = 0;
+	while (arr && arr[i])
+		i++;
+	return (i);
 }

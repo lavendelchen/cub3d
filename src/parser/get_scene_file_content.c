@@ -14,7 +14,7 @@
 #include "../../inc/cub3d.h"
 #include <fcntl.h>
 
-static bool	is_empty_line(const char *line)
+bool	is_empty_line(const char *line)
 {
 	int	line_len;
 	int	i;

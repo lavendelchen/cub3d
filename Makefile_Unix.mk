@@ -31,7 +31,7 @@ OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
-all:			$(MLX) $(LIBFT) $(NAME)
+all:			glfw_lib $(MLX) $(LIBFT) $(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
@@ -47,6 +47,21 @@ $(MLX):
 
 $(LIBFT):
 				@$(MAKE) --silent --directory $(dir $(LIBFT))
+
+glfw_lib:
+				@printf $(BOLD)"Checking if Homebrew is installed\n"$(RESET)
+				@command -v brew > /dev/null || $(MAKE) --silent --directory $(PWD) install_brew
+				@printf $(BOLD)"Checking if GLFW Library is installed\n"$(RESET)
+				@brew list --quiet glfw > /dev/null || brew install glfw
+
+install_brew:
+				@printf $(BOLD)"Installing Homebrew in goinfre\n"$(RESET)
+				rm -rf $HOME/.brew
+				rm -rf $HOME/goinfre/.brew
+				git clone --depth=1 https://github.com/Homebrew/brew $HOME/goinfre/.brew
+				echo 'export PATH=$HOME/goinfre/.brew/bin:$PATH' >> $HOME/.zshrc
+				source $HOME/.zshrc
+				brew update
 
 run:			all
 				./$(NAME)
@@ -73,7 +88,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re run norm
+.PHONY:			all clean fclean re run norm glfw_lib install_brew
 
 # text modifiers #
 RED =				"\e[31m"

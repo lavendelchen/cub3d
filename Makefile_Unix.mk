@@ -50,9 +50,7 @@ $(LIBFT):
 				@$(MAKE) --silent --directory $(dir $(LIBFT))
 
 glfw_lib:
-				@printf $(BOLD)"Checking if Homebrew is installed\n"$(RESET)
 				@command -v brew > /dev/null || $(MAKE) --silent --directory $(PWD) install_brew
-				@printf $(BOLD)"Checking if GLFW Library is installed\n"$(RESET)
 				@brew list --quiet glfw > /dev/null || brew install glfw
 
 install_brew:

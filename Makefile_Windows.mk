@@ -27,7 +27,8 @@ SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
 					$(DIR_SRC)parser/parser.c \
 					$(DIR_SRC)parser/get_scene_file_content.c \
-					$(DIR_SRC)parser/get_scene_description_from_content.c
+					$(DIR_SRC)parser/get_scene_description_from_content.c\
+					$(DIR_SRC)parser/has_valid_map.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a

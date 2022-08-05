@@ -52,7 +52,7 @@ bool	has_valid_map(const char *scene_file_path)
 	char	*line;
 
 	fd = open(scene_file_path, O_RDONLY);
-	if (fd != 0)
+	if (fd == -1)
 		return (false);
 	line = get_next_line(fd);
 	while (line != NULL)

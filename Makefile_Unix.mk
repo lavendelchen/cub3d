@@ -32,6 +32,8 @@ OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
+.NOTPARALLEL: # Force disabling of Parallel execution of Rules
+
 all:			glfw_lib $(MLX) $(LIBFT) $(NAME)
 
 $(NAME):		$(OBJ)

@@ -57,8 +57,7 @@ bool	has_valid_map(const char *scene_file_path)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		if (is_in_map(line))
-			if (next_line_empty(fd))
+		if (is_in_map(line) && next_line_empty(fd))
 				return (false);
 		free(line);
 		line = get_next_line(fd);

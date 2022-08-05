@@ -23,10 +23,10 @@ static bool	next_line_empty(int fd)
 	if (is_empty_line(line))
 	{
 		free(line);
-		return (false);
+		return (true);
 	}
 	free(line);
-	return (true);
+	return (false);
 }
 
 static bool	is_in_map(const char *line)

@@ -33,6 +33,12 @@ bool	has_valid_map(const char *scene_file_path);
 char	**adjust_map(char *map[]);
 char	**get_map(char *scene_file_path);
 
+/* utils.c */
+bool	free_map_return(char *map[], bool return_value);
+void	print_error_exit(char *error_message, int exit_code, void *to_free);
+bool	is_in_map(const char *line);
+
+
 char	**get_scene_file_content(const char *scene_file_path);
 bool	is_readable_file(const char *path_to_file);
 int		get_scene_description_from_content(

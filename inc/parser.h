@@ -27,6 +27,7 @@
 typedef struct s_scene_description t_scene_description;
 
 char	**get_scene_file_content(const char *scene_file_path);
+bool	is_readable_file(const char *path_to_file);
 int		get_scene_description_from_content(
 			char **scene_file_content, t_scene_description *scene_description);
 bool	is_empty_line(const char *line);

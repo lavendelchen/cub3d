@@ -6,14 +6,14 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 13:17:46 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/02 16:31:09 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/08 21:44:10 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 #include "../../inc/parser.h"
 
-static inline bool	is_readable_file(const char *path_to_file)
+inline bool	is_readable_file(const char *path_to_file)
 {
 	int	fd;
 

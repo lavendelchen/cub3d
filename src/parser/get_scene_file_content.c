@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:29:01 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/02 16:29:13 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/08 22:25:17 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*iterate_file(int fd)
 
 static bool	identifier_is_cut_by_newline(char *identifier)
 {
-	int identifier_len;
+	int	identifier_len;
 
 	if (ft_strchr(identifier, '\n') == NULL)
 		return (false);
@@ -56,13 +56,16 @@ static bool	identifier_is_cut_by_newline(char *identifier)
 		return (false);
 	if (identifier_len == 3)
 	{
-		if (ft_strcmp(identifier, "NO\n") != 0 && ft_strcmp(identifier, "SO\n") != 0
-			&& ft_strcmp(identifier, "WE\n") != 0 && ft_strcmp(identifier, "EA\n") != 0)
+		if (ft_strcmp(identifier, "NO\n") != 0 \
+		&& ft_strcmp(identifier, "SO\n") != 0 \
+		&& ft_strcmp(identifier, "WE\n") != 0 \
+		&& ft_strcmp(identifier, "EA\n") != 0)
 			return (false);
 	}
 	if (identifier_len == 2)
 	{
-		if (ft_strcmp(identifier, "C\n") != 0 && ft_strcmp(identifier, "F\n") != 0)
+		if (ft_strcmp(identifier, "C\n") != 0 \
+		&& ft_strcmp(identifier, "F\n") != 0)
 			return (false);
 	}
 	return (true);

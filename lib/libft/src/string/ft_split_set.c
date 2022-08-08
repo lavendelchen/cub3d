@@ -48,12 +48,35 @@ static size_t	get_element_size(char *str, char *set)
 	return (size);
 }
 
+static char	**fuck_norm_tbh(char *str, char *set, char *arr[], int *iter)
+{
+	int	arr_len;
+
+	arr_len = get_arr_len(str, set);
+	iter[0] = 0;
+	while (iter[0] < arr_len && *str)
+	{
+		while (*str && ft_strchr(set, *str) != NULL)
+			str++;
+		if (*str == '\0')
+			break ;
+		arr[iter[0]] = ft_calloc(get_element_size(str, set) + 1, \
+		sizeof(*arr[iter[0]]));
+		if (arr[iter[0]] == NULL)
+			return (ft_free_split(arr));
+		iter[1] = 0;
+		while (*str && ft_strchr(set, *str) == NULL)
+			arr[iter[0]][iter[1]++] = *str++;
+		iter[0]++;
+	}
+	return (arr);
+}
+
 char	**ft_split_set(char *str, char *set)
 {
 	char	**arr;
 	int		arr_len;
-	int		i;
-	int		j;
+	int		iter[2];
 
 	if (str == NULL || set == NULL)
 		return (NULL);
@@ -61,18 +84,7 @@ char	**ft_split_set(char *str, char *set)
 	arr = ft_calloc(arr_len + 1, sizeof(*arr));
 	if (arr == NULL)
 		return (NULL);
-	i = 0;
-	while (i < arr_len && *str)
-	{
-		while (*str && ft_strchr(set, *str) != NULL)
-			str++;
-		arr[i] = ft_calloc(get_element_size(str, set) + 1, sizeof(*arr[i]));
-		if (arr[i] == NULL)
-			return (ft_free_split(arr));
-		j = 0;
-		while (*str && ft_strchr(set, *str) == NULL)
-			arr[i][j++] = *str++;
-		i++;
-	}
-	return (arr);
+	iter[0] = 0;
+	iter[1] = 0;
+	return (fuck_norm_tbh(str, set, arr, iter));
 }

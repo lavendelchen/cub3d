@@ -61,5 +61,6 @@ int		get_scene_description_from_content(
 bool	is_empty_line(const char *line);
 int 	print_error_return(const char *error_message, int return_code);
 bool	has_valid_map(const char *scene_file_path);
+bool	has_valid_identifiers(const char *scene_file_path);
 
 #endif

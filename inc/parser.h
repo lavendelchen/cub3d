@@ -33,6 +33,21 @@ bool	has_valid_map(const char *scene_file_path);
 char	**adjust_map(char *map[]);
 char	**get_map(char *scene_file_path);
 
+/* get_scene_description */
+int		set_map_from_content(char **content, t_scene_description *scene_desc);
+int		set_textures_and_colors_from_content(
+		char ***scene_content, t_scene_description *scene_desc
+);
+bool	is_valid_color_description(char *desc);
+int		set_floor_color(
+		t_scene_description *scene_description,
+		int r, int g, int b
+);
+int		set_celling_color(
+		t_scene_description *scene_description,
+		int r, int g, int b
+);
+
 /* utils.c */
 bool	free_map_return(char *map[], bool return_value);
 void	print_error_exit(char *error_message, int exit_code, void *to_free);

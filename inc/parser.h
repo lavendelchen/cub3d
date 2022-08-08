@@ -26,6 +26,13 @@
 
 typedef struct s_scene_description t_scene_description;
 
+/* has_valid_map.c */
+bool	has_valid_map(const char *scene_file_path);
+
+/* get_map.c */
+char	**adjust_map(char *map[]);
+char	**get_map(char *scene_file_path);
+
 char	**get_scene_file_content(const char *scene_file_path);
 bool	is_readable_file(const char *path_to_file);
 int		get_scene_description_from_content(

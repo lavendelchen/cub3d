@@ -24,7 +24,7 @@ static inline bool	is_readable_file(const char *path_to_file)
 	return (true);
 }
 
-int print_error_return(const char *error_message, int return_code)
+int	print_error_return(const char *error_message, int return_code)
 {
 	ft_putstr_fd((char *)error_message, STDERR_FILENO);
 	return (return_code);
@@ -46,7 +46,8 @@ int	parser(
 	scene_file_content = get_scene_file_content(scene_file_path);
 	if (scene_file_content == NULL)
 		return (print_error_return(ALLOC_ERROR, 1));
-	if (get_scene_description_from_content(scene_file_content, scene_description) != 0)
+	if (get_scene_description_from_content(scene_file_content,
+			scene_description) != 0)
 		return (EXIT_FAILURE);
 	ft_free_split(scene_file_content);
 	return (EXIT_SUCCESS);

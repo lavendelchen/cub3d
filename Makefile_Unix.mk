@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile_Unix.mk                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/02 17:10:24 by shaas            ###   ########.fr        #
+#    Updated: 2022/08/08 22:48:46 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,14 @@ LIBFT_FLAGS =		$(LIBFT)
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
 					$(DIR_SRC)parser/parser.c \
-					$(DIR_SRC)parser/get_scene_file_content.c \
-					$(DIR_SRC)parser/get_scene_description_from_content.c \
-					$(DIR_SRC)parser/has_valid_map.c
+					$(DIR_SRC)parser/utils.c \
+					$(DIR_SRC)parser/has_valid_identifiers.c \
+					$(DIR_SRC)parser/has_valid_map/has_valid_map.c \
+					$(DIR_SRC)parser/has_valid_map/get_map.c \
+					$(DIR_SRC)parser/get_scene_description/get_scene_description_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_map_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_textures_and_color.c \
+					$(DIR_SRC)parser/get_scene_file_content.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a
@@ -52,7 +57,7 @@ $(LIBFT):
 				@$(MAKE) --silent --directory $(dir $(LIBFT))
 
 glfw_lib:
-				@command -v brew > /dev/null || $(MAKE) --silent --directory $(PWD) install_brew
+				@command -v brew || $(MAKE) --silent --directory $(PWD) install_brew
 				@brew list --quiet glfw > /dev/null || brew install glfw
 
 install_brew:
@@ -61,7 +66,8 @@ install_brew:
 				rm -rf $HOME/goinfre/.brew
 				git clone --depth=1 https://github.com/Homebrew/brew $HOME/goinfre/.brew
 				echo 'export PATH=$HOME/goinfre/.brew/bin:$PATH' >> $HOME/.zshrc
-				source $HOME/.zshrc
+				export PATH=$HOME/goinfre/.brew/bin:$PATH
+				$(shell source $HOME/.zshrc)
 				brew update
 
 run:			all

@@ -25,10 +25,14 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
-					$(DIR_SRC)parser/parser.c \
-					$(DIR_SRC)parser/get_scene_file_content.c \
-					$(DIR_SRC)parser/get_scene_description_from_content.c\
-					$(DIR_SRC)parser/has_valid_map.c
+					$(DIR_SRC)parser/utils.c \
+					$(DIR_SRC)parser/has_valid_identifiers.c \
+					$(DIR_SRC)parser/has_valid_map/has_valid_map.c \
+					$(DIR_SRC)parser/has_valid_map/get_map.c \
+					$(DIR_SRC)parser/get_scene_description/get_scene_description_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_map_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_textures_and_color.c \
+					$(DIR_SRC)parser/get_scene_file_content.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a

@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:26:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/02 17:50:28 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/08 22:47:18 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-typedef struct s_scene_description t_scene_description;
+typedef struct s_scene_description	t_scene_description;
 
 /* has_valid_map.c */
 bool	has_valid_map(const char *scene_file_path);
@@ -59,7 +59,7 @@ bool	is_readable_file(const char *path_to_file);
 int		get_scene_description_from_content(
 			char **scene_file_content, t_scene_description *scene_description);
 bool	is_empty_line(const char *line);
-int 	print_error_return(const char *error_message, int return_code);
+int		print_error_return(const char *error_message, int return_code);
 bool	has_valid_map(const char *scene_file_path);
 bool	has_valid_identifiers(const char *scene_file_path);
 

@@ -13,6 +13,28 @@
 #include "../../../inc/cub3d.h"
 #include "../../../inc/parser.h"
 
+static char	*get_valid_map_line(char *map_line)
+{
+	char	*valid_line;
+	int		i;
+
+	if (map_line == NULL)
+		return (NULL);
+	valid_line = ft_calloc(ft_strlen(map_line) + 1, sizeof (*map_line));
+	if (valid_line == NULL)
+		return (NULL);
+	i = 0;
+	while (map_line[i] != '\0')
+	{
+		if (map_line[i] == ' ' || map_line[i] == '\n')
+			valid_line[i] = '1';
+		else
+			valid_line[i] = map_line[i];
+		i += 1;
+	}
+	return (valid_line);
+}
+
 int	set_map_from_content(
 		char **scene_content,
 		t_scene_description *scene_desc
@@ -27,7 +49,7 @@ int	set_map_from_content(
 	i = 0;
 	while (scene_content[i] != NULL)
 	{
-		scene_desc->map_content[i] = ft_strdup(scene_content[i]);
+		scene_desc->map_content[i] = get_valid_map_line(scene_content[i]);
 		if (scene_desc->map_content[i] == NULL)
 			return (print_error_return(ALLOC_ERROR, 1));
 		i += 1;

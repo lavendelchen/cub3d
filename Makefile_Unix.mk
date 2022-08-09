@@ -57,8 +57,8 @@ $(LIBFT):
 				@$(MAKE) --silent --directory $(dir $(LIBFT))
 
 glfw_lib:
-				@command -v brew || $(MAKE) --silent --directory $(PWD) install_brew
-				@brew list --quiet glfw > /dev/null || brew install glfw
+				@command -v brew > /dev/null || $(MAKE) --silent --directory $(PWD) install_brew
+				@brew list --quiet glfw &> /dev/null || brew install glfw
 
 install_brew:
 				@printf $(BOLD)"Installing Homebrew in goinfre\n"$(RESET)

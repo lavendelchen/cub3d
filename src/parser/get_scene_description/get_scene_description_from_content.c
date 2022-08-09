@@ -13,7 +13,7 @@
 #include "../../../inc/cub3d.h"
 #include "../../../inc/parser.h"
 
-int	set_celling_color(
+int	set_ceiling_color(
 		t_scene_description *scene_description,
 		int r, int g, int b
 )
@@ -24,9 +24,9 @@ int	set_celling_color(
 		return (print_error_return(INVALID_IDENTIFIER_ERROR, 1));
 	if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
 		return (print_error_return(INVALID_COLOR_ERROR, 1));
-	scene_description->celling_color.r = r;
-	scene_description->celling_color.g = g;
-	scene_description->celling_color.b = b;
+	scene_description->ceiling_color.r = r;
+	scene_description->ceiling_color.g = g;
+	scene_description->ceiling_color.b = b;
 	has_been_set = true;
 	return (EXIT_SUCCESS);
 }

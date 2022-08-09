@@ -55,7 +55,7 @@ static int	set_color(
 				ft_atoi(rbg_splitted[2])
 				);
 	if (ft_strcmp(identifier, "C") == 0)
-		ret = set_celling_color(
+		ret = set_ceiling_color(
 				scene_description,
 				ft_atoi(rbg_splitted[0]),
 				ft_atoi(rbg_splitted[1]),

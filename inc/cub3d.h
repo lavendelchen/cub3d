@@ -47,10 +47,16 @@ typedef struct s_scene_description
 		int			g;
 		int			b;
 	}	floor_color;
-	struct s_color	celling_color;
+	struct s_color	ceiling_color;
 	char			**map_content;
 }	t_scene_description;
 
-int 	parser(const char *scene_description_file_path, t_scene_description *scene_description);
+typedef struct s_game
+{
+
+}	t_game;
+
+int		rgba(int r, int g, int b, int a);
+int		parser(const char *scene_description_file_path, t_scene_description *scene_description);
 
 #endif

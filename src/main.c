@@ -23,5 +23,6 @@ int	main(int argc, const char *argv[])
 	}
 	if (parser(argv[1], &scene_description) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
+	//init_game()
 	return (EXIT_SUCCESS);
 }

@@ -43,7 +43,7 @@ static char	**get_identifiers(char *scene_file_path)
 }
 
 #define FLOOR 0
-#define CELLING 1
+#define CEILING 1
 
 static bool	is_correct_identifier_count(char *identifier)
 {
@@ -61,15 +61,15 @@ static bool	is_correct_identifier_count(char *identifier)
 	if (identifier != NULL && ft_strstr(identifier, "F"))
 		color_count[FLOOR] += 1;
 	if (identifier != NULL && ft_strstr(identifier, "C"))
-		color_count[CELLING] += 1;
+		color_count[CEILING] += 1;
 	if ((texture_count[NO] > 1 || texture_count[SO] > 1 \
 	|| texture_count[EA] > 1 || texture_count[WE] > 1) \
-	|| (color_count[FLOOR] > 1 || color_count[CELLING] > 1))
+	|| (color_count[FLOOR] > 1 || color_count[CEILING] > 1))
 		return (false);
 	if ((identifier == NULL) \
 	&& ((texture_count[NO] != 1 || texture_count[SO] != 1 \
 	|| texture_count[EA] != 1 || texture_count[WE] != 1) \
-	|| (color_count[FLOOR] != 1 || color_count[CELLING] != 1)))
+	|| (color_count[FLOOR] != 1 || color_count[CEILING] != 1)))
 		return (false);
 	return (true);
 }

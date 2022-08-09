@@ -43,7 +43,7 @@ int		set_floor_color(
 		t_scene_description *scene_description,
 		int r, int g, int b
 );
-int		set_celling_color(
+int		set_ceiling_color(
 		t_scene_description *scene_description,
 		int r, int g, int b
 );

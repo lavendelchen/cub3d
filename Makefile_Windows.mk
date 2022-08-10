@@ -40,7 +40,7 @@ MLX			=		$(DIR_LIB)MLX42\libmlx.a
 all: announce_system $(MLX) $(LIBFT) $(NAME)
 
 announce_system:
-	@echo you are using the Windows Makefile!
+	@echo You are using the Windows Makefile!
 
 $(NAME): $(OBJ)
 	@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)

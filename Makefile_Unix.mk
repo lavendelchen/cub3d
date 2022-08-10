@@ -39,7 +39,10 @@ MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
 .NOTPARALLEL: # Force disabling of Parallel execution of Rules
 
-all:			glfw_lib $(MLX) $(LIBFT) $(NAME)
+all:			announce_system glfw_lib $(MLX) $(LIBFT) $(NAME)
+
+announce_system:
+	@echo You are using the Unix Makefile!
 
 $(NAME):		$(OBJ)
 				@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)

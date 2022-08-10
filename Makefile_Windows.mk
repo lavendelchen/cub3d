@@ -37,7 +37,10 @@ OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft\libft.a
 MLX			=		$(DIR_LIB)MLX42\libmlx.a
 
-all: $(MLX) $(LIBFT) $(NAME)
+all: announce_system $(MLX) $(LIBFT) $(NAME)
+
+announce_system:
+	@echo you are using the Windows Makefile!
 
 $(NAME): $(OBJ)
 	@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)

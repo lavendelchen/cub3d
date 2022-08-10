@@ -12,42 +12,39 @@
 
 NAME		=		cub3d
 
-DIR_SRC		=		$(subst ,,.\src\)
-DIR_OBJ		=		$(subst ,,.\obj\)
-DIR_INC		=		$(subst ,,.\inc\)
-DIR_LIB		=		$(subst ,,.\lib\)
+DIR_SRC		=		./src/
+DIR_OBJ		=		./obj/
+DIR_INC		=		./inc/
+DIR_LIB		=		./lib/
 
 CC			=		gcc
 CC_FLAGS	=		-Wall -Wextra -Werror -g
-MLX_FLAGS	=		$(DIR_LIB)MLX42\libmlx42.a -lglfw3 -lopengl32 -lgdi32
+MLX_FLAGS	=		$(DIR_LIB)MLX42/libmlx42.a -lglfw3 -lopengl32 -lgdi32
 
 LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
-					$(DIR_SRC)parser\utils.c \
-					$(DIR_SRC)parser\has_valid_identifiers.c \
-					$(DIR_SRC)parser\has_valid_map\has_valid_map.c \
-					$(DIR_SRC)parser\has_valid_map\get_map.c \
-					$(DIR_SRC)parser\get_scene_description\get_scene_description_from_content.c \
-					$(DIR_SRC)parser\get_scene_description\set_map_from_content.c \
-					$(DIR_SRC)parser\get_scene_description\set_textures_and_color.c \
-					$(DIR_SRC)parser\get_scene_file_content.c
+					$(DIR_SRC)parser/utils.c \
+					$(DIR_SRC)parser/has_valid_identifiers.c \
+					$(DIR_SRC)parser/has_valid_map/has_valid_map.c \
+					$(DIR_SRC)parser/has_valid_map/get_map.c \
+					$(DIR_SRC)parser/get_scene_description/get_scene_description_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_map_from_content.c \
+					$(DIR_SRC)parser/get_scene_description/set_textures_and_color.c \
+					$(DIR_SRC)parser/get_scene_file_content.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
-LIBFT		=		$(DIR_LIB)libft\libft.a
-MLX			=		$(DIR_LIB)MLX42\libmlx.a
+LIBFT		=		$(DIR_LIB)libft/libft.a
+MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
-all: announce_system $(MLX) $(LIBFT) $(NAME)
-
-announce_system:
-	@echo You are using the Windows Makefile!
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS) $(LIBFT_FLAGS)
 	@echo \e[91mc\e[95mu\e[94mb\e[96m3\e[92md \e[93mc\e[91mr\e[95me\e[94ma\e[96mt\e[92me\e[93md\e[93m!
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.c
-	@if not exist $(DIR_OBJ) md $(DIR_OBJ)
+	@if not exist .\obj\\ md .\obj\\
 	@$(CC) $(CC_FLAGS) -o $@ -c $<
 	@echo $(notdir $<) compiled
 
@@ -69,15 +66,15 @@ norm:
 	@norminette $(DIR_SRC) | grep Error | egrep --color '.*Error!|$$' || true
 
 clean:
-	@if exist $(DIR_OBJ) del /S /Q $(DIR_OBJ)
-	@$(MAKE) --directory $(dir $(MLX))\ clean
-	@$(MAKE) --directory $(dir $(LIBFT))\ clean
+	@if exist .\obj\\ del /S /Q .\obj\\
+	@$(MAKE) --directory $(dir $(MLX)) clean
+	@$(MAKE) --directory $(dir $(LIBFT)) clean
 	@echo $(NAME) object files removed
 
 fclean: clean
-	@if exist $(NAME).exe del $(NAME).exe
-	@$(MAKE) --directory $(dir $(MLX))\ fclean
-	@$(MAKE) --directory $(dir $(LIBFT))\ fclean
+	@if exist $(NAME) del $(NAME)
+	@$(MAKE) --directory $(dir $(MLX)) fclean
+	@$(MAKE) --directory $(dir $(LIBFT)) fclean
 	@echo $(NAME) removed
 
 re: fclean all

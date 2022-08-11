@@ -35,7 +35,19 @@ enum e_texture_iterator
 	NO = 0,
 	SO = 1,
 	WE = 2,
-	EA = 3,
+	EA = 3
+};
+
+enum e_grid
+{
+	X = 0,
+	Y = 1
+};
+
+enum e_screensize
+{
+	SCREENWIDTH = 1920,
+	SCREENHEIGHT = 1080
 };
 
 typedef struct s_scene_description
@@ -49,10 +61,20 @@ typedef struct s_scene_description
 	}	floor_color;
 	struct s_color	ceiling_color;
 	char			**map_content;
+	int				starting_position[2];
+	int				starting_direction;
 }	t_scene_description;
 
 typedef struct s_game
 {
+	mlx_t	*mlx_ptr;
+
+	struct s_vectors
+	{
+		double	player_position[2];
+		double	player_direction[2];
+		double	camera_plane[2];
+	}	vectors;
 
 }	t_game;
 

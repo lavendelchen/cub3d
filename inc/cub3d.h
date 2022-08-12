@@ -30,6 +30,8 @@ int     rgba(int r, int g, int b, int a);
 
 /* Parser */
 
+#define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
+
 enum e_texture_iterator
 {
 	NO = 0,
@@ -68,14 +70,14 @@ typedef struct s_scene_description
 typedef struct s_game
 {
 	mlx_t	*mlx_ptr;
-
 	struct s_vectors
 	{
 		double	player_position[2];
 		double	player_direction[2];
 		double	camera_plane[2];
 	}	vectors;
-
+	double	current_frame_time;
+	double	last_frame_time;
 }	t_game;
 
 int		rgba(int r, int g, int b, int a);

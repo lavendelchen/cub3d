@@ -64,6 +64,60 @@ void temp_init_scene_description(t_scene_description *scene_description)
 		printf("[%s]\n", scene_description->map_content[i]);
 }
 
+bool init_directions_no_so(int starting_direction, struct s_vectors *vectors)
+{
+	if (starting_direction == NO)
+	{
+		vectors->player_direction[X] = 0;
+		vectors->player_direction[Y] = 1;
+		vectors->camera_plane[X] = FOV;
+		vectors->camera_plane[Y] = 0;
+		return (true);
+	}
+	else if (starting_direction == SO)
+	{
+		vectors->player_direction[X] = 0;
+		vectors->player_direction[Y] = -1;
+		vectors->camera_plane[X] = FOV*-1;
+		vectors->camera_plane[Y] = 0;
+		return (true);
+	}
+	return (false);
+}
+
+void init_directions_we_ea(int starting_direction, struct s_vectors *vectors)
+{
+	if (starting_direction == WE)
+	{
+		vectors->player_direction[X] = -1;
+		vectors->player_direction[Y] = 0;
+		vectors->camera_plane[X] = 0;
+		vectors->camera_plane[Y] = FOV;
+	}
+	else if (starting_direction == EA)
+	{
+		vectors->player_direction[X] = 1;
+		vectors->player_direction[Y] = 0;
+		vectors->camera_plane[X] = 0;
+		vectors->camera_plane[Y] = FOV*-1;
+	}
+}
+
+void init_game(t_game *game, t_scene_description *scene_description)
+{
+	game->vectors.player_position[X] = scene_description->starting_position[X];
+	game->vectors.player_position[Y] = scene_description->starting_position[Y];
+	if (!init_directions_no_so(scene_description->starting_direction, &(game->vectors)))
+		init_directions_we_ea(scene_description->starting_direction, &(game->vectors));
+	game->current_frame_time = 0;
+	game->last_frame_time = 0;
+}
+
+void	raycasting_loop(t_game *game, t_scene_description *scene_description)
+{
+
+}
+
 int	main(int argc, const char *argv[])
 {
 	t_scene_description	scene_description;
@@ -80,8 +134,8 @@ int	main(int argc, const char *argv[])
 	//if (parser(argv[1], &scene_description) != EXIT_SUCCESS)
 	//	return (EXIT_FAILURE);
 
+	init_game(&game, &scene_description);
 	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", true); //later resize false?
-	(void)game; //
-	sleep(30); //
+	raycasting_loop(&game, &scene_description);
 	return (EXIT_SUCCESS);
 }

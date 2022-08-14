@@ -105,8 +105,8 @@ void init_directions_we_ea(int starting_direction, struct s_vectors *vectors)
 
 void init_game(t_game *game, t_scene_description *scene_description)
 {
-	game->vectors.player_position[X] = scene_description->starting_position[X];
-	game->vectors.player_position[Y] = scene_description->starting_position[Y];
+	game->vectors.player_position[X] = scene_description->starting_position[X] + 0.5; // so that we are in the middle of that square
+	game->vectors.player_position[Y] = scene_description->starting_position[Y] + 0.5; // same as above
 	if (!init_directions_no_so(scene_description->starting_direction, &(game->vectors)))
 		init_directions_we_ea(scene_description->starting_direction, &(game->vectors));
 	game->current_frame_time = 0;
@@ -115,7 +115,24 @@ void init_game(t_game *game, t_scene_description *scene_description)
 
 void	raycasting_loop(t_game *game, t_scene_description *scene_description)
 {
+	int					screen_x_iter;
+	t_raycasting_calc	calc;
 
+	while (true)
+	{
+		screen_x_iter = 0;
+		while (screen_x_iter < SCREENWIDTH)
+		{
+			calc.camera_plane_part = (screen_x_iter * 2 / SCREENWIDTH) - 1;
+			calc.ray_vector[X] = player_direction[X] + (camera_plane[X] * camera_plane_part);
+			calc.ray_vector[Y] = player_direction[Y] + (camera_plane[Y] * camera_plane_part);
+			calc.player_tile[X] = (int)game->vectors.player_position[X];
+			calc.player_tile[Y] = (int)game->vectors.player_position[Y];
+
+
+			screen_x_iter++;
+		}
+	}
 }
 
 int	main(int argc, const char *argv[])

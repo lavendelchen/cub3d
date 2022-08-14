@@ -30,8 +30,6 @@ int     rgba(int r, int g, int b, int a);
 
 /* Parser */
 
-#define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
-
 enum e_texture_iterator
 {
 	NO = 0,
@@ -46,11 +44,17 @@ enum e_grid
 	Y = 1
 };
 
+/* Modifiable stuff to modify the game! */
+
 enum e_screensize
 {
 	SCREENWIDTH = 1920,
 	SCREENHEIGHT = 1080
 };
+
+#define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
+
+/* -------------------------------- */
 
 typedef struct s_scene_description
 {
@@ -72,13 +76,21 @@ typedef struct s_game
 	mlx_t	*mlx_ptr;
 	struct s_vectors
 	{
-		double	player_position[2];
+		double	player_position[2]; // do we start at the corner of a tile
 		double	player_direction[2];
 		double	camera_plane[2];
 	}	vectors;
 	double	current_frame_time;
 	double	last_frame_time;
 }	t_game;
+
+typedef struct s_raycasting_calc
+{
+	double	camera_plane_part;
+	double	ray_vector[2];
+	int		player_tile[2];
+	double	ray_distance_to_next_tile_border[2];
+}	t_raycasting_calc;
 
 int		rgba(int r, int g, int b, int a);
 int		parser(const char *scene_description_file_path, t_scene_description *scene_description);

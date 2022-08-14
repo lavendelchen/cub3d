@@ -35,6 +35,42 @@ static char	*get_valid_map_line(char *map_line)
 	return (valid_line);
 }
 
+static inline enum e_direction	get_direction(char player_pos)
+{
+	if (player_pos == 'N')
+		return (NO);
+	if (player_pos == 'S')
+		return (SO);
+	if (player_pos == 'E')
+		return (EA);
+	if (player_pos == 'W')
+		return (WE);
+	return (-1);
+}
+
+static void	get_player(
+		t_scene_description *scene_desc,
+		char *line,
+		int z
+		)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		{
+			scene_desc->player.x = 0;
+			scene_desc->player.y = i;
+			scene_desc->player.z = z;
+			scene_desc->player.direction = get_direction(line[i]);
+			break ;
+		}
+		i += 1;
+	}
+}
+
 int	set_map_from_content(
 		char **scene_content,
 		t_scene_description *scene_desc
@@ -49,6 +85,8 @@ int	set_map_from_content(
 	i = 0;
 	while (scene_content[i] != NULL)
 	{
+		if (has_player(scene_content[i]))
+			get_player(scene_desc, scene_content[i], i);
 		scene_desc->map_content[i] = get_valid_map_line(scene_content[i]);
 		if (scene_desc->map_content[i] == NULL)
 			return (print_error_return(ALLOC_ERROR, 1));

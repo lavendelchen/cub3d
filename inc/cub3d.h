@@ -30,7 +30,7 @@ int     rgba(int r, int g, int b, int a);
 
 /* Parser */
 
-enum e_texture_iterator
+enum e_direction
 {
 	NO = 0,
 	SO = 1,
@@ -49,6 +49,13 @@ typedef struct s_scene_description
 	}	floor_color;
 	struct s_color	ceiling_color;
 	char			**map_content;
+	struct s_player
+	{
+		float				x;
+		float				y;
+		float				z;
+		enum e_direction	direction;
+	}	player;
 }	t_scene_description;
 
 typedef struct s_game

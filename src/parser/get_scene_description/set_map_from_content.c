@@ -48,6 +48,12 @@ static inline enum e_direction	get_direction(char player_pos)
 	return (-1);
 }
 
+/**
+ * Sets the Position of the Player in the Level
+ * @details X refers to the horizontal Position, east west
+ * @details Y refers to the vertical Position, up down
+ * @details Z refers to the depth Position, north east
+ */
 static void	get_player(
 		t_scene_description *scene_desc,
 		char *line,
@@ -61,8 +67,8 @@ static void	get_player(
 	{
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 		{
-			scene_desc->player.x = 0;
-			scene_desc->player.y = i;
+			scene_desc->player.x = i;
+			scene_desc->player.y = 0;
 			scene_desc->player.z = z;
 			scene_desc->player.direction = get_direction(line[i]);
 			break ;

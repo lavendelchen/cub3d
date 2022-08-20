@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <memory.h>
+# include <math.h>
 
 
 /* RGBA / UTILS */
@@ -44,6 +45,12 @@ enum e_grid
 	Y = 1
 };
 
+enum e_borders
+{
+	NO_SO = 0,
+	WE_EA = 1
+};
+
 /* Modifiable stuff to modify the game! */
 
 enum e_screensize
@@ -53,6 +60,7 @@ enum e_screensize
 };
 
 #define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
+#define WALLHEIGHT 1 // value 1 means 1 tile will have equal wall height and width. higher wallheight will make higher walls, lower wallheight will make smaller ones.
 
 /* -------------------------------- */
 
@@ -73,7 +81,8 @@ typedef struct s_scene_description
 
 typedef struct s_game
 {
-	mlx_t	*mlx_ptr;
+	mlx_t		*mlx_ptr;
+	mlx_image_t	*mlx_img; // for now
 	struct s_vectors
 	{
 		double	player_position[2]; // do we start at the corner of a tile
@@ -88,8 +97,12 @@ typedef struct s_raycasting_calc
 {
 	double	camera_plane_part;
 	double	ray_vector[2];
-	int		player_tile[2];
-	double	ray_distance_to_next_tile_border[2];
+	int		tile[2];
+	double	relative_distance_between_tile_borders[2];
+	double	player_to_tile_border_distance[2];
+	short	direction[2];
+	short	hit_border;
+	double	result_wall_distance;
 }	t_raycasting_calc;
 
 int		rgba(int r, int g, int b, int a);

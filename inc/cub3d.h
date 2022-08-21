@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/02 13:34:59 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:22:18 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_raycasting_calc
 	double	camera_plane_part;
 	double	ray_vector[2];
 	int		tile[2];
-	double	relative_distance_between_tile_borders[2];
+	double	tile_border_distance[2];
 	double	player_to_tile_border_distance[2];
 	short	direction[2];
 	short	hit_border;

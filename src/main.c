@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/02 14:48:22 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:22:18 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,22 +118,22 @@ void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 	if (cast->ray_vector[X] < 0)
 	{
 		cast->direction[X] = -1;
-		cast->player_to_tile_border_distance[X] = (game->vectors.player_position[X] - cast->tile[X]) * cast->relative_distance_between_tile_borders[X];
+		cast->player_to_tile_border_distance[X] = (game->vectors.player_position[X] - cast->tile[X]) * cast->tile_border_distance[X];
 	}
 	else
 	{
 	  cast->direction[X] = 1;
-	  cast->player_to_tile_border_distance[X] = (cast->tile[X] + 1.0 - game->vectors.player_position[X]) * cast->relative_distance_between_tile_borders[X];
+	  cast->player_to_tile_border_distance[X] = (cast->tile[X] + 1.0 - game->vectors.player_position[X]) * cast->tile_border_distance[X];
 	}
 	if (cast->ray_vector[Y] < 0)
 	{
 		cast->direction[Y] = -1;
-		cast->player_to_tile_border_distance[Y] = (game->vectors.player_position[Y] - cast->tile[Y]) * cast->relative_distance_between_tile_borders[Y];
+		cast->player_to_tile_border_distance[Y] = (game->vectors.player_position[Y] - cast->tile[Y]) * cast->tile_border_distance[Y];
 	}
 	else
 	{
 	  cast->direction[Y] = 1;
-	  cast->player_to_tile_border_distance[Y] = (cast->tile[Y] + 1.0 - game->vectors.player_position[Y]) * cast->relative_distance_between_tile_borders[Y];
+	  cast->player_to_tile_border_distance[Y] = (cast->tile[Y] + 1.0 - game->vectors.player_position[Y]) * cast->tile_border_distance[Y];
 	}
 }
 
@@ -143,13 +143,13 @@ void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_descripti
 	{
 		if (cast->player_to_tile_border_distance[X] < cast->player_to_tile_border_distance[Y])
 		{
-			cast->player_to_tile_border_distance[X] += cast->relative_distance_between_tile_borders[X];
+			cast->player_to_tile_border_distance[X] += cast->tile_border_distance[X];
 			cast->tile[X] += cast->direction[X];
 			cast->hit_border = NO_SO; //correct?
 		}
 		else
 		{
-			cast->player_to_tile_border_distance[Y] += cast->relative_distance_between_tile_borders[Y];
+			cast->player_to_tile_border_distance[Y] += cast->tile_border_distance[Y];
 			cast->tile[Y] += cast->direction[Y];
 			cast->hit_border = WE_EA; //correct?
 		}
@@ -199,16 +199,16 @@ void	raycasting_loop(t_game *game, t_scene_description *scene_description)
 			cast.ray_vector[Y] = game->vectors.player_direction[Y] + (game->vectors.camera_plane[Y] * cast.camera_plane_part);
 			cast.tile[X] = (int)game->vectors.player_position[X];
 			cast.tile[Y] = (int)game->vectors.player_position[Y];
-			cast.relative_distance_between_tile_borders[X]
+			cast.tile_border_distance[X]
 			= (cast.ray_vector[X] != 0) ? fabs(1 / cast.ray_vector[X]) : INFINITY; // let's see if infinity works
-			cast.relative_distance_between_tile_borders[Y]
+			cast.tile_border_distance[Y]
 			= (cast.ray_vector[Y] != 0) ? fabs(1 / cast.ray_vector[Y]) : INFINITY; // let's see if infinity works
 			init_wall_hit_calc(&cast, game);
 			wall_hit_calc(&cast, scene_description);
 			if (cast.hit_border == NO_SO)
-				cast.result_wall_distance = cast.player_to_tile_border_distance[X] - cast.relative_distance_between_tile_borders[X];
+				cast.result_wall_distance = cast.player_to_tile_border_distance[X] - cast.tile_border_distance[X];
 			else
-				cast.result_wall_distance = cast.player_to_tile_border_distance[Y] - cast.relative_distance_between_tile_borders[Y];
+				cast.result_wall_distance = cast.player_to_tile_border_distance[Y] - cast.tile_border_distance[Y];
 			draw_wall(&cast, game, scene_description, ray_iter);
 			ray_iter++;
 		}

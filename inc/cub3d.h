@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/02 13:34:59 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:55:00 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int     rgba(int r, int g, int b, int a);
 
 /* Parser */
 
-enum e_texture_iterator
+enum e_direction
 {
 	NO = 0,
 	SO = 1,
@@ -38,17 +38,38 @@ enum e_texture_iterator
 	EA = 3,
 };
 
+enum e_grid
+{
+	X = 0,
+	Y = 1
+};
+
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
+
+/**
+ * Holds Information about the Position of the Player in the Level
+ * @param x Refers to the east / west Position of the Player
+ * @param y Refers to the up / down Position of the Player, always 0
+ * @param z Refers to the north / south Position of the Player
+ */
+typedef struct s_player
+{
+	int					position[2];
+	enum e_direction	direction;
+}	t_player;
+
 typedef struct s_scene_description
 {
-	char	*textures[4];
-	struct s_color
-	{
-		int			r;
-		int			g;
-		int			b;
-	}	floor_color;
-	struct s_color	ceiling_color;
-	char			**map_content;
+	char		*textures[4];
+	t_color 	floor_color;
+	t_color 	ceiling_color;
+	char		**map_content;
+	t_player	player;
 }	t_scene_description;
 
 typedef struct s_game

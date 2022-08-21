@@ -52,6 +52,7 @@ int		set_ceiling_color(
 bool	free_map_return(char *map[], bool return_value);
 void	print_error_exit(char *error_message, int exit_code, void *to_free);
 bool	is_in_map(const char *line);
+bool	has_player(char *line);
 
 
 char	**get_scene_file_content(const char *scene_file_path);

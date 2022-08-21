@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 17:37:03 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 17:54:25 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	temp_init_scene_desc(t_scene_description *scene_desc)
 	scene_desc->map_content[24] = ft_strdup("10000000000000001");
 	scene_desc->map_content[25] = ft_strdup("11111111111111111");
 	
-	scene_desc->starting_position[X] = 8;
-	scene_desc->starting_position[Y] = 6;
-	scene_desc->starting_direction = NO;
+	scene_desc->player.position[X] = 8;
+	scene_desc->player.position[Y] = 6;
+	scene_desc->player.direction = NO;
 
 	for (int i = 0; i < 4; i++)
 		printf("Himmelsrichtung: %s\n", scene_desc->textures[i]);
@@ -106,13 +106,13 @@ void	init_directions_we_ea(int starting_direction, struct s_vectors *vectors)
 void	init_game(t_game *game, t_scene_description *scene_desc)
 {
 	game->vectors.player_position[X]
-		= scene_desc->starting_position[X] + 0.5; // so that we are in the middle of that square
+		= scene_desc->player.position[X] + 0.5; // so that we are in the middle of that square
 	game->vectors.player_position[Y]
-		= scene_desc->starting_position[Y] + 0.5; // same as above // or minus - ?
+		= scene_desc->player.position[Y] + 0.5; // same as above // or minus - ?
 	if (!init_directions_no_so(
-			scene_desc->starting_direction, &(game->vectors)))
+			scene_desc->player.direction, &(game->vectors)))
 		init_directions_we_ea(
-			scene_desc->starting_direction, &(game->vectors));
+			scene_desc->player.direction, &(game->vectors));
 	game->current_frame_time = 0;
 	game->last_frame_time = 0;
 }

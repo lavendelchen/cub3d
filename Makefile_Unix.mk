@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile_Unix.mk                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/08 22:48:46 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/21 17:48:55 by shaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ install_brew:
 				brew update
 
 run:			all
-				./$(NAME)
+				./$(NAME) scene_descriptions/valid/0.cub
 
 norm:
 				@printf $(CYAN)"Checking Norminette on $(dir $(LIBFT))\n"$(RESET)

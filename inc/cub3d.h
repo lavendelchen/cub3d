@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 17:55:07 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 18:55:23 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ typedef struct s_game
 	double	last_frame_time;
 }	t_game;
 
+typedef struct s_bundle
+{
+	t_scene_description	*scene_desc;
+	t_game				*game;
+}	t_bundle;
+
 typedef struct s_raycasting_calc
 {
 	double	camera_plane_part;
@@ -117,6 +123,14 @@ typedef struct s_raycasting_calc
 	short	hit_border;
 	double	result_wall_distance;
 }	t_raycasting_calc;
+
+typedef struct s_square_data
+{
+	mlx_image_t *mlx_img;
+	int			start_pixel[2];
+	int			length[2];
+	int			color;
+} t_square_data;
 
 int		rgba(int r, int g, int b, int a);
 int		parser(const char *scene_description_file_path, t_scene_description *scene_description);

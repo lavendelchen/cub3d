@@ -86,8 +86,8 @@ typedef struct s_player
 typedef struct s_scene_description
 {
 	char		*textures[4];
-	t_color 	floor_color;
-	t_color 	ceiling_color;
+	int			floor_color;
+	int			ceiling_color;
 	char		**map_content;
 	t_player	player;
 }	t_scene_description;

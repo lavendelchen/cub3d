@@ -24,9 +24,7 @@ int	set_ceiling_color(
 		return (print_error_return(INVALID_IDENTIFIER_ERROR, 1));
 	if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
 		return (print_error_return(INVALID_COLOR_ERROR, 1));
-	scene_description->ceiling_color.r = r;
-	scene_description->ceiling_color.g = g;
-	scene_description->ceiling_color.b = b;
+	scene_description->ceiling_color = rgba(r, g, b, 0xFF);
 	has_been_set = true;
 	return (EXIT_SUCCESS);
 }
@@ -42,9 +40,7 @@ int	set_floor_color(
 		return (print_error_return(INVALID_IDENTIFIER_ERROR, 1));
 	if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
 		return (print_error_return(INVALID_COLOR_ERROR, 1));
-	scene_description->floor_color.r = r;
-	scene_description->floor_color.g = g;
-	scene_description->floor_color.b = b;
+	scene_description->floor_color = rgba(r, g, b, 0xFF);
 	has_been_set = true;
 	return (EXIT_SUCCESS);
 }

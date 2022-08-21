@@ -19,12 +19,8 @@ void	temp_init_scene_desc(t_scene_description *scene_desc)
 	scene_desc->textures[WE] = ft_strdup("./textures_xpm/naturalbricks_hd_middle.xpm");
 	scene_desc->textures[EA] = ft_strdup("./textures_xpm/naturalbricks_hd_middle.xpm");
 
-	scene_desc->floor_color.r = 1;
-	scene_desc->floor_color.g = 2;
-	scene_desc->floor_color.b = 3;
-	scene_desc->ceiling_color.r = 3;
-	scene_desc->ceiling_color.g = 2;
-	scene_desc->ceiling_color.b = 1;
+	scene_desc->floor_color = rgba(1, 2, 3, 0xFF);
+	scene_desc->ceiling_color = rgba(3, 2, 1, 0xFF);
 
 	scene_desc->map_content = ft_calloc(27, sizeof(char *));
 	scene_desc->map_content[0] = ft_strdup("11111111111111111");

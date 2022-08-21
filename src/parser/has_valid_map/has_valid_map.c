@@ -27,7 +27,7 @@ static bool	is_open_wall(char *map[], int i)
 	return (false);
 }
 
-static inline bool	has_player(char *line)
+bool	has_player(char *line)
 {
 	if (ft_strchr(line, 'N') == NULL && ft_strchr(line, 'S') == NULL \
 	&& ft_strchr(line, 'E') == NULL && ft_strchr(line, 'W') == NULL)

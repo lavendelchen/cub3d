@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 18:55:23 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 19:40:53 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ enum e_screensize
 
 /* -------------------------------- */
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
-
-/**
- * Holds Information about the Position of the Player in the Level
- * @param x Refers to the east / west Position of the Player
- * @param y Refers to the up / down Position of the Player, always 0
- * @param z Refers to the north / south Position of the Player
- */
 typedef struct s_player
 {
 	int					position[2];

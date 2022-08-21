@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 19:27:31 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 19:44:36 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,12 +191,11 @@ void	put_floor_ceiling(mlx_image_t *mlx_img, t_scene_description *scene_desc)
 	square.length[Y] = SCREENHEIGHT / 2;
 	square.start_pixel[X] = 0;
 	square.start_pixel[Y] = 0;
-	square.color = rgba(scene_desc->ceiling_color.r,
-		scene_desc->ceiling_color.g, scene_desc->ceiling_color.b, 0xFF);
+	square.color = scene_desc->ceiling_color;
 	put_square(&square);
 	square.start_pixel[Y] = SCREENHEIGHT / 2;
-	square.color = rgba(scene_desc->floor_color.r,
-		scene_desc->floor_color.g, scene_desc->floor_color.b, 0xFF);
+	square.color = scene_desc->floor_color;
+	put_square(&square);
 }
 
 void	raycasting_loop(void *bundle)

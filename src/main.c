@@ -6,63 +6,11 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 17:54:25 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 19:27:31 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	temp_init_scene_desc(t_scene_description *scene_desc)
-{
-	scene_desc->textures[NO] = ft_strdup("./textures_xpm/naturalbricks_hd_verydark.xpm");
-	scene_desc->textures[SO] = ft_strdup("./textures_xpm/naturalbricks_hd_middle.xpm");
-	scene_desc->textures[WE] = ft_strdup("./textures_xpm/naturalbricks_hd_middle.xpm");
-	scene_desc->textures[EA] = ft_strdup("./textures_xpm/naturalbricks_hd_middle.xpm");
-
-	scene_desc->floor_color.r = 1;
-	scene_desc->floor_color.g = 2;
-	scene_desc->floor_color.b = 3;
-	scene_desc->ceiling_color.r = 3;
-	scene_desc->ceiling_color.g = 2;
-	scene_desc->ceiling_color.b = 1;
-
-	scene_desc->map_content = ft_calloc(27, sizeof(char *));
-	scene_desc->map_content[0] = ft_strdup("11111111111111111");
-	scene_desc->map_content[1] = ft_strdup("10000000000000001");
-	scene_desc->map_content[2] = ft_strdup("10100000100000101");
-	scene_desc->map_content[3] = ft_strdup("10000000000000001");
-	scene_desc->map_content[4] = ft_strdup("10001000100010001");
-	scene_desc->map_content[5] = ft_strdup("10000000000000001");
-	scene_desc->map_content[6] = ft_strdup("10101010N01010101");
-	scene_desc->map_content[7] = ft_strdup("10000000000000001");
-	scene_desc->map_content[8] = ft_strdup("10001000100100001");
-	scene_desc->map_content[9] = ft_strdup("10000000000000001");
-	scene_desc->map_content[10] = ft_strdup("10100000100001001");
-	scene_desc->map_content[11] = ft_strdup("10000000000000001");
-	scene_desc->map_content[12] = ft_strdup("11111111111111111");
-	scene_desc->map_content[13] = ft_strdup("11111111111111111");
-	scene_desc->map_content[14] = ft_strdup("10000000000000001");
-	scene_desc->map_content[15] = ft_strdup("10100000100000101");
-	scene_desc->map_content[16] = ft_strdup("10000000000000001");
-	scene_desc->map_content[17] = ft_strdup("10001000100010001");
-	scene_desc->map_content[18] = ft_strdup("10000000000000001");
-	scene_desc->map_content[19] = ft_strdup("10101010001010101");
-	scene_desc->map_content[20] = ft_strdup("10000000000000001");
-	scene_desc->map_content[21] = ft_strdup("10001000100100001");
-	scene_desc->map_content[22] = ft_strdup("10000000000000001");
-	scene_desc->map_content[23] = ft_strdup("10100000100001001");
-	scene_desc->map_content[24] = ft_strdup("10000000000000001");
-	scene_desc->map_content[25] = ft_strdup("11111111111111111");
-	
-	scene_desc->player.position[X] = 8;
-	scene_desc->player.position[Y] = 6;
-	scene_desc->player.direction = NO;
-
-	for (int i = 0; i < 4; i++)
-		printf("Himmelsrichtung: %s\n", scene_desc->textures[i]);
-	for (int i = 0; i < 26; i++)
-		printf("[%s]\n", scene_desc->map_content[i]);
-}
 
 bool	init_directions_no_so(int starting_direction, struct s_vectors *vectors)
 {
@@ -172,6 +120,26 @@ void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
 			- cast->tile_border_distance[Y];
 }
 
+void	put_square(t_square_data *square)
+{
+	int	iter[2];
+
+	iter[Y] = 0;
+	while (iter[Y] < square->length[Y]
+		&& iter[Y] + square->start_pixel[Y] < (int)square->mlx_img->height)
+	{
+		iter[X] = 0;
+		while (iter[X] < square->length[X]
+			&& iter[X] + square->start_pixel[X] < (int)square->mlx_img->width)
+		{
+			mlx_put_pixel(square->mlx_img, square->start_pixel[X] + iter[X],
+				square->start_pixel[Y] + iter[Y], square->color);
+			iter[X]++;
+		}
+		iter[Y]++;
+	}
+}
+
 void	draw_wall(t_raycasting_calc *cast, t_game *game,
 					t_scene_description *scene_desc, int ray_iter)
 {
@@ -192,7 +160,6 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, 0xFF0000EE);
 		first_pixel++;
 	}
-	mlx_put_pixel(game->mlx_img, 1000, 1000, 0xFF0000EE);
 	(void)scene_desc;
 }
 
@@ -215,47 +182,64 @@ void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
 		cast->tile_border_distance[Y] = fabs(1 / cast->ray_vector[Y]);
 }
 
-void	raycasting_loop(t_game *game, t_scene_description *scene_desc)
+void	put_floor_ceiling(mlx_image_t *mlx_img, t_scene_description *scene_desc)
+{
+	t_square_data	square;
+
+	square.mlx_img = mlx_img;
+	square.length[X] = SCREENWIDTH;
+	square.length[Y] = SCREENHEIGHT / 2;
+	square.start_pixel[X] = 0;
+	square.start_pixel[Y] = 0;
+	square.color = rgba(scene_desc->ceiling_color.r,
+		scene_desc->ceiling_color.g, scene_desc->ceiling_color.b, 0xFF);
+	put_square(&square);
+	square.start_pixel[Y] = SCREENHEIGHT / 2;
+	square.color = rgba(scene_desc->floor_color.r,
+		scene_desc->floor_color.g, scene_desc->floor_color.b, 0xFF);
+}
+
+void	raycasting_loop(void *bundle)
 {
 	int					ray_iter;
 	t_raycasting_calc	cast;
+	t_game				*game;
+	t_scene_description	*scene_desc;
 
-	while (true)
+	game = ((t_bundle *)bundle)->game;
+	scene_desc = ((t_bundle *)bundle)->scene_desc;
+	put_floor_ceiling(game->mlx_img, scene_desc);
+	ray_iter = 0;
+	while (ray_iter < SCREENWIDTH)
 	{
-		ray_iter = 0;
-		while (ray_iter < SCREENWIDTH)
-		{
-			ray_calc(&cast, game, ray_iter);
-			init_wall_hit_calc(&cast, game);
-			wall_hit_calc(&cast, scene_desc);
-			draw_wall(&cast, game, scene_desc, ray_iter);
-			ray_iter++;
-		}
-		return ; //testing
+		ray_calc(&cast, game, ray_iter);
+		init_wall_hit_calc(&cast, game);
+		wall_hit_calc(&cast, scene_desc);
+		draw_wall(&cast, game, scene_desc, ray_iter);
+		ray_iter++;
 	}
 }
 
 int	main(int argc, const char *argv[])
 {
 	t_scene_description	scene_desc;
-	temp_init_scene_desc(&scene_desc); //
 	t_game				game;
+	t_bundle			bundle;
 
-	(void)argc; //
-	(void)argv; //
-	//if (argc != 2)
-	//{
-	//	ft_putstr_fd("Error\nOne Argument Needed\n", STDERR_FILENO);
-	//	return (EXIT_FAILURE);
-	//}
-	//if (parser(argv[1], &scene_desc) != EXIT_SUCCESS)
-	//	return (EXIT_FAILURE);
-
+	if (argc != 2)
+	{
+		ft_putstr_fd("Error\nOne Argument Needed\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	if (parser(argv[1], &scene_desc) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	bundle.game = &game;
+	bundle.scene_desc = &scene_desc;
 	init_game(&game, &scene_desc);
 	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", false);
 	game.mlx_img = mlx_new_image(game.mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	mlx_image_to_window(game.mlx_ptr, game.mlx_img, 0, 0);
-	raycasting_loop(&game, &scene_desc);
+	mlx_loop_hook(game.mlx_ptr, raycasting_loop, &bundle);
 	mlx_loop(game.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 16:22:18 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 16:46:10 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void temp_init_scene_description(t_scene_description *scene_description)
 	scene_description->map_content[24] = ft_strdup("10000000000000001");
 	scene_description->map_content[25] = ft_strdup("11111111111111111");
 	
-	scene_description->starting_position[X] = 6;
-	scene_description->starting_position[Y] = 8;
+	scene_description->starting_position[X] = 8;
+	scene_description->starting_position[Y] = 6;
 	scene_description->starting_direction = NO;
 
 	for (int i = 0; i < 4; i++)
@@ -172,15 +172,12 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game, t_scene_description *scene
 	if (last_pixel >= SCREENHEIGHT)
 		last_pixel = SCREENHEIGHT - 1;
 	//later textures, now just some color
-	printf("\nITERATION %d\n", ray_iter);
-	printf("Wall height: %d\n", wall_height);
-	printf("First pixel: %d\n", first_pixel);
-	printf("Last pixel: %d\n", last_pixel);
-	while (first_pixel >= last_pixel)
+	while (first_pixel <= last_pixel)
 	{
-		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, 0xFF0000FF);
+		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, 0xFF0000EE);
 		first_pixel++;
 	}
+	mlx_put_pixel(game->mlx_img, 1000, 1000, 0xFF0000EE);
 	(void)scene_description;
 }
 
@@ -233,11 +230,10 @@ int	main(int argc, const char *argv[])
 	//	return (EXIT_FAILURE);
 
 	init_game(&game, &scene_description);
-	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", true); //later resize false?
+	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", false);
 	game.mlx_img = mlx_new_image(game.mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	mlx_image_to_window(game.mlx_ptr, game.mlx_img, 0, 0);
-	printf("INFINITY: %f\n", INFINITY);
 	raycasting_loop(&game, &scene_description);
-	while (true);
+	mlx_loop(game.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

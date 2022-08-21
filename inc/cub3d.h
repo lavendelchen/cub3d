@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/02 13:34:59 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:55:00 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ enum e_direction
 	WE = 2,
 	EA = 3,
 };
+
+enum e_grid
+{
+	X = 0,
+	Y = 1
+};
+
 typedef struct s_color
 {
 	int	r;
@@ -52,9 +59,7 @@ typedef struct s_color
  */
 typedef struct s_player
 {
-	float				x;
-	float				y;
-	float				z;
+	int					position[2];
 	enum e_direction	direction;
 }	t_player;
 

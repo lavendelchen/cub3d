@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 22:42:22 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/08 22:42:54 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:57:00 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline enum e_direction	get_direction(char player_pos)
 static void	get_player(
 		t_scene_description *scene_desc,
 		char *line,
-		int z
+		int y
 		)
 {
 	int	line_iterator;
@@ -69,9 +69,8 @@ static void	get_player(
 		if (line[line_iterator] == 'N' || line[line_iterator] == 'S' \
 		|| line[line_iterator] == 'E' || line[line_iterator] == 'W')
 		{
-			scene_desc->player.x = line_iterator;
-			scene_desc->player.y = 0;
-			scene_desc->player.z = z;
+			scene_desc->player.position[X] = line_iterator;
+			scene_desc->player.position[Y] = y;
 			scene_desc->player.direction = get_direction(line[line_iterator]);
 			break ;
 		}

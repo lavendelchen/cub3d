@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 19:44:36 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 23:09:48 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,12 +198,118 @@ void	put_floor_ceiling(mlx_image_t *mlx_img, t_scene_description *scene_desc)
 	put_square(&square);
 }
 
+void	print_data(struct s_vectors *vectors)
+{
+	printf("NEW ITERATION\n");
+	printf("Player position X: [%f]\n", vectors->player_position[X]);
+	printf("Player position Y: [%f]\n", vectors->player_position[Y]);
+	printf("Player direction X: [%f]\n", vectors->player_direction[X]);
+	printf("Player direction Y: [%f]\n", vectors->player_direction[Y]);
+	printf("Camera plane X: [%f]\n", vectors->camera_plane[X]);
+	printf("Camera plane Y: [%f]\n", vectors->camera_plane[Y]);
+}
+
+void	check_left_right_movement(
+	struct s_vectors *vectors, char **map, mlx_t *mlx_ptr)
+{
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_D))
+	{
+		if (map[(int)(vectors->player_position[X] - (vectors->player_direction[Y]
+		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
+			vectors->player_position[X]
+			-= vectors->player_direction[Y] * MOVESPEED;
+		if (map[(int)vectors->player_position[X]]
+		[(int)(vectors->player_position[Y] + (vectors->player_direction[X]
+		* MOVESPEED))] != '1')
+			vectors->player_position[Y]
+			+= vectors->player_direction[X] * MOVESPEED;
+		print_data(vectors);
+	}
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_A))
+	{
+		if (map[(int)(vectors->player_position[X] + (vectors->player_direction[Y]
+		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
+			vectors->player_position[X]
+			+= vectors->player_direction[Y] * MOVESPEED;
+		if (map[(int)vectors->player_position[X]]
+		[(int)(vectors->player_position[Y] - (vectors->player_direction[X]
+		* MOVESPEED))] != '1')
+			vectors->player_position[Y]
+			-= vectors->player_direction[X] * MOVESPEED;
+		print_data(vectors);
+	}
+}
+
+void	check_forward_back_movement(
+	struct s_vectors *vectors, char **map, mlx_t *mlx_ptr)
+{
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_W))
+	{
+		if (map[(int)(vectors->player_position[X] + (vectors->player_direction[X]
+		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
+			vectors->player_position[X]
+			+= vectors->player_direction[X] * MOVESPEED;
+		if (map[(int)vectors->player_position[X]]
+		[(int)(vectors->player_position[Y] + (vectors->player_direction[Y]
+		* MOVESPEED))] != '1')
+			vectors->player_position[Y]
+			+= vectors->player_direction[Y] * MOVESPEED;
+		print_data(vectors);
+	}
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_S))
+	{
+		if (map[(int)(vectors->player_position[X] - (vectors->player_direction[X]
+		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
+			vectors->player_position[X]
+			-= vectors->player_direction[X] * MOVESPEED;
+		if (map[(int)vectors->player_position[X]]
+		[(int)(vectors->player_position[Y] - (vectors->player_direction[Y]
+		* MOVESPEED))] != '1')
+			vectors->player_position[Y]
+			-= vectors->player_direction[Y] * MOVESPEED;
+		print_data(vectors);
+	}
+}
+
+void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr)
+{
+	double	old_player_dir[1];
+	double	old_camera_plane[1];
+
+	old_player_dir[X] = vectors->player_direction[X];
+	old_camera_plane[X] = vectors->camera_plane[X];
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_LEFT))
+	{
+		vectors->player_direction[X] = vectors->player_direction[X] * cos(-ROTSPEED)
+		- vectors->player_direction[Y] * sin(-ROTSPEED);
+		vectors->player_direction[Y] = old_player_dir[X] * sin(-ROTSPEED)
+		+ vectors->player_direction[Y] * cos(-ROTSPEED);
+		vectors->camera_plane[X] = vectors->camera_plane[X]
+		* cos(-ROTSPEED) - vectors->camera_plane[Y] * sin(-ROTSPEED);
+		vectors->camera_plane[Y] = old_camera_plane[X] * sin(-ROTSPEED)
+		+ vectors->camera_plane[Y] * cos(-ROTSPEED);
+		print_data(vectors);
+	}
+	if (mlx_is_key_down(mlx_ptr, MLX_KEY_RIGHT))
+	{
+		vectors->player_direction[X] = vectors->player_direction[X] * cos(ROTSPEED)
+		- vectors->player_direction[Y] * sin(ROTSPEED);
+		vectors->player_direction[Y] = old_player_dir[X] * sin(ROTSPEED)
+		+ vectors->player_direction[Y] * cos(ROTSPEED);
+		vectors->camera_plane[X] = vectors->camera_plane[X]
+		* cos(ROTSPEED) - vectors->camera_plane[Y] * sin(ROTSPEED);
+		vectors->camera_plane[Y] = old_camera_plane[X] * sin(ROTSPEED)
+		+ vectors->camera_plane[Y] * cos(ROTSPEED);
+		print_data(vectors);
+	}
+}
+
 void	raycasting_loop(void *bundle)
 {
-	int					ray_iter;
-	t_raycasting_calc	cast;
-	t_game				*game;
-	t_scene_description	*scene_desc;
+	static int					ray_iter;
+	static t_raycasting_calc	cast;
+	t_game						*game;
+	t_scene_description			*scene_desc;
 
 	game = ((t_bundle *)bundle)->game;
 	scene_desc = ((t_bundle *)bundle)->scene_desc;
@@ -217,6 +323,9 @@ void	raycasting_loop(void *bundle)
 		draw_wall(&cast, game, scene_desc, ray_iter);
 		ray_iter++;
 	}
+	check_forward_back_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
+	check_left_right_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
+	check_rotation(&(game->vectors), game->mlx_ptr);
 }
 
 int	main(int argc, const char *argv[])
@@ -235,6 +344,7 @@ int	main(int argc, const char *argv[])
 	bundle.game = &game;
 	bundle.scene_desc = &scene_desc;
 	init_game(&game, &scene_desc);
+	print_data(&(game.vectors));
 	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", false);
 	game.mlx_img = mlx_new_image(game.mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	mlx_image_to_window(game.mlx_ptr, game.mlx_img, 0, 0);

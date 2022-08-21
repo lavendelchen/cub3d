@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 19:40:53 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 23:11:17 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ enum e_screensize
 
 #define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
 #define WALLHEIGHT 1 // value 1 means 1 tile will have equal wall height and width. higher wallheight will make higher walls, lower wallheight will make smaller ones.
+
+#define MOVESPEED 0.005 // multiplier for movement velocity, make higher for faster movement
+#define ROTSPEED 0.003 // mltiplier for rotation velocity, make higher for faster rotation
 
 /* -------------------------------- */
 
@@ -117,7 +120,7 @@ typedef struct s_square_data
 	int			start_pixel[2];
 	int			length[2];
 	int			color;
-} t_square_data;
+}	t_square_data;
 
 int		rgba(int r, int g, int b, int a);
 int		parser(const char *scene_description_file_path, t_scene_description *scene_description);

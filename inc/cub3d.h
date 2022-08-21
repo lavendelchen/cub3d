@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 16:22:18 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/21 17:06:09 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_raycasting_calc
 	double	ray_vector[2];
 	int		tile[2];
 	double	tile_border_distance[2];
-	double	player_to_tile_border_distance[2];
+	double	player_to_tile_border[2];
 	short	direction[2];
 	short	hit_border;
 	double	result_wall_distance;

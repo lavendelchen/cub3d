@@ -25,6 +25,7 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
+					$(DIR_SRC)utils/close_utils.c \
 					$(DIR_SRC)parser/utils.c \
 					$(DIR_SRC)parser/has_valid_identifiers.c \
 					$(DIR_SRC)parser/has_valid_map/has_valid_map.c \

@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 18:03:58 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 18:05:59 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,10 @@ void	check_left_right_movement(
 void	check_forward_back_movement(
 		struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
 void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
+
+/* UTILS */
+/* Close Utils */
+void	close_at_esc(mlx_key_data_t key_data, void *arg);
+void	free_at_window_close(void *arg);
 
 #endif

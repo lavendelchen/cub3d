@@ -251,7 +251,10 @@ int	main(int argc, const char *argv[])
 	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", false);
 	game.mlx_img = mlx_new_image(game.mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	mlx_image_to_window(game.mlx_ptr, game.mlx_img, 0, 0);
+	mlx_close_hook(game.mlx_ptr, free_at_window_close, &bundle);
+	mlx_key_hook(game.mlx_ptr, close_at_esc, &bundle);
 	mlx_loop_hook(game.mlx_ptr, raycasting_loop, &bundle);
 	mlx_loop(game.mlx_ptr);
+	mlx_terminate(game.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

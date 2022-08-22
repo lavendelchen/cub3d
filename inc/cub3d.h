@@ -125,4 +125,9 @@ typedef struct s_square_data
 int		rgba(int r, int g, int b, int a);
 int		parser(const char *scene_description_file_path, t_scene_description *scene_description);
 
+/* UTILS */
+/* Close Utils */
+void	close_at_esc(mlx_key_data_t key_data, void *arg);
+void	free_at_window_close(void *arg);
+
 #endif

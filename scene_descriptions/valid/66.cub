@@ -1,7 +1,7 @@
-WE ./textures_xpm/naturalbricks_hd_middle.xpm
-EA ./textures_xpm/naturalbricks_hd_middle.xpm
-SO ./textures_xpm/naturalbricks_hd_middle.xpm
-NO ./textures_xpm/naturalbricks_hd_verydark.xpm
+WE ./textures/pride_textures/pansexual_pride_flag.png
+EA ./textures/pride_textures/genderflux_pride_flag.png
+SO ./textures/pride_textures/gay_pride_1979_flag.png
+NO ./textures/pride_textures/bisexual_pride_flag.png
 
 
 C 155,100,160

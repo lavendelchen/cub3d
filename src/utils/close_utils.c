@@ -27,5 +27,9 @@ void	free_at_window_close(void *arg)
 
 	bundle = (t_bundle *)arg;
 	ft_free_split(bundle->scene_desc->map_content);
+	free(bundle->scene_desc->textures[0]);
+	free(bundle->scene_desc->textures[1]);
+	free(bundle->scene_desc->textures[2]);
+	free(bundle->scene_desc->textures[3]);
 	mlx_delete_image(bundle->game->mlx_ptr, bundle->game->mlx_img);
 }

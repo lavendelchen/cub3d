@@ -6,7 +6,7 @@
 #    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/22 17:24:00 by shaas            ###   ########.fr        #
+#    Updated: 2022/08/22 20:11:07 by shaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,10 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)rgba.c \
+					$(DIR_SRC)init_game.c \
+					$(DIR_SRC)check_movement_rotation.c \
 					$(DIR_SRC)utils/close_utils.c \
+					$(DIR_SRC)utils/draw_utils.c \
 					$(DIR_SRC)parser/parser.c \
 					$(DIR_SRC)parser/utils.c \
 					$(DIR_SRC)parser/has_valid_identifiers.c \
@@ -33,8 +36,7 @@ SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)parser/get_scene_description/get_scene_description_from_content.c \
 					$(DIR_SRC)parser/get_scene_description/set_map_from_content.c \
 					$(DIR_SRC)parser/get_scene_description/set_textures_and_color.c \
-					$(DIR_SRC)parser/get_scene_file_content.c \
-					$(DIR_SRC)check_movement_rotation.c
+					$(DIR_SRC)parser/get_scene_file_content.c
 OBJ			=		$(SRC:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 LIBFT		=		$(DIR_LIB)libft/libft.a
 MLX			=		$(DIR_LIB)MLX42/libmlx.a

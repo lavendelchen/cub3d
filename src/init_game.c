@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:11:19 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 20:59:10 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,8 @@ void	init_game(t_game *game, t_scene_description *scene_desc)
 			scene_desc->player.direction, &(game->vectors)))
 		init_directions_we_ea(
 			scene_desc->player.direction, &(game->vectors));
+	game->wall[NO] = mlx_load_png(scene_desc->textures[NO]);
+	game->wall[SO] = mlx_load_png(scene_desc->textures[SO]);
+	game->wall[WE] = mlx_load_png(scene_desc->textures[WE]);
+	game->wall[EA] = mlx_load_png(scene_desc->textures[EA]);
 }

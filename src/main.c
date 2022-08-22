@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:22:40 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 22:40:53 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,41 +65,58 @@ void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
 	}
 	if (cast->hit_border == NO_SO)
 	{
-		cast->result_wall_distance = cast->player_to_tile_border[X]
+		cast->wall_distance = cast->player_to_tile_border[X]
 			- cast->tile_border_distance[X];
-		cast->result_wall_direction = cast->potential_wall_direction[X];
+		cast->wall_direction = cast->potential_wall_direction[X];
 	}
 	else
 	{
-		cast->result_wall_distance = cast->player_to_tile_border[Y]
+		cast->wall_distance = cast->player_to_tile_border[Y]
 			- cast->tile_border_distance[Y];
-		cast->result_wall_direction = cast->potential_wall_direction[Y];
+		cast->wall_direction = cast->potential_wall_direction[Y];
 	}
 }
 
-void	draw_wall(t_raycasting_calc *cast, t_game *game,
-					t_scene_description *scene_desc, int ray_iter)
+int	tex_pixel_color(t_texture_calc *tex, mlx_texture_t *wall)
 {
-	int	wall_height;
-	int	first_pixel;
-	int	last_pixel;
+	int	pixel;
 
-	int colors[4] = {0xFF0000EE, 0x00FF00EE, 0x0000FFEE, 0xFFFF00EE};
+	pixel = tex->texture_pixel[X] * tex->texture_pixel[Y] * 4;
+	return (rgba(wall->pixels[pixel], wall->pixels[pixel + 1],
+				wall->pixels[pixel + 2], wall->pixels[pixel + 3]));
+}
 
-	wall_height = (int)(SCREENHEIGHT * WALLHEIGHT) / cast->result_wall_distance;
-	first_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) - (wall_height / 2);
-	if (first_pixel < 0)
-		first_pixel = 0;
-	last_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) + (wall_height / 2);
-	if (last_pixel >= (SCREENHEIGHT * WALLHEIGHT))
-		last_pixel = SCREENHEIGHT * WALLHEIGHT - 1;
-	//later textures, now just some color
-	while (first_pixel <= last_pixel)
+void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter)
+{
+	t_texture_calc	tex;
+
+	tex.wall_height = (int)(SCREENHEIGHT * WALLHEIGHT) / cast->wall_distance;
+	tex.first_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) - (tex.wall_height / 2);
+	if (tex.first_pixel < 0)
+		tex.first_pixel = 0;
+	tex.last_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) + (tex.wall_height / 2);
+	if (tex.last_pixel >= (SCREENHEIGHT * WALLHEIGHT))
+		tex.last_pixel = SCREENHEIGHT * WALLHEIGHT - 1;
+	if (cast->hit_border == NO_SO)
+		tex.wall_hitpoint = game->vectors.player_position[Y]
+		+ (cast->wall_distance * cast->ray_vector[Y]);
+	else
+		tex.wall_hitpoint = game->vectors.player_position[X]
+		+ (cast->wall_distance * cast->ray_vector[X]);
+	tex.wall_hitpoint -= floor(tex.wall_hitpoint);
+	tex.texture_pixel[X] = (int)(tex.wall_hitpoint * (double)game->wall[cast->wall_direction]->width);
+	if ((cast->hit_border == NO_SO && cast->ray_vector[X] > 0)
+		|| (cast->hit_border == WE_EA && cast->ray_vector[Y] < 0))
+		tex.texture_pixel[X] = game->wall[cast->wall_direction]->width - tex.texture_pixel[X] - 1;
+	tex.step = (double)game->wall[cast->wall_direction]->height / tex.wall_height;
+	tex.texture_position = 0;;
+	while (tex.first_pixel < tex.last_pixel)
 	{
-		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, colors[cast->result_wall_direction]);
-		first_pixel++;
+		tex.texture_pixel[Y] = (int)tex.texture_position;
+		mlx_put_pixel(game->mlx_img, ray_iter, tex.first_pixel, tex_pixel_color(&tex, game->wall[cast->wall_direction]));
+		tex.texture_position += tex.step;
+		tex.first_pixel++;
 	}
-	(void)scene_desc;
 }
 
 void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
@@ -164,13 +181,12 @@ void	raycasting_loop(void *bundle)
 		ray_calc(&cast, game, ray_iter);
 		init_wall_hit_calc(&cast, game);
 		wall_hit_calc(&cast, scene_desc);
-		draw_wall(&cast, game, scene_desc, ray_iter);
+		draw_wall(&cast, game, ray_iter);
 		ray_iter++;
 	}
 	check_forward_back_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
 	check_left_right_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
 	check_rotation(&(game->vectors), game->mlx_ptr);
-	paste_png(game, "textures/pride_textures/bisexual_pride_flag.png");
 }
 
 int	main(int argc, const char *argv[])

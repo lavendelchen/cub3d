@@ -6,62 +6,11 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 17:31:52 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 20:22:40 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-bool	init_directions_no_so(int starting_direction, struct s_vectors *vectors)
-{
-	if (starting_direction == NO)
-	{
-		vectors->player_direction[X] = 0;
-		vectors->player_direction[Y] = -1; //now up is - and down is + since that is how the map works i think
-		vectors->camera_plane[X] = FOV;
-		vectors->camera_plane[Y] = 0;
-		return (true);
-	}
-	else if (starting_direction == SO)
-	{
-		vectors->player_direction[X] = 0;
-		vectors->player_direction[Y] = 1;
-		vectors->camera_plane[X] = FOV * -1;
-		vectors->camera_plane[Y] = 0;
-		return (true);
-	}
-	return (false);
-}
-
-void	init_directions_we_ea(int starting_direction, struct s_vectors *vectors)
-{
-	if (starting_direction == WE)
-	{
-		vectors->player_direction[X] = -1;
-		vectors->player_direction[Y] = 0;
-		vectors->camera_plane[X] = 0;
-		vectors->camera_plane[Y] = FOV * -1;
-	}
-	else if (starting_direction == EA)
-	{
-		vectors->player_direction[X] = 1;
-		vectors->player_direction[Y] = 0;
-		vectors->camera_plane[X] = 0;
-		vectors->camera_plane[Y] = FOV;
-	}
-}
-
-void	init_game(t_game *game, t_scene_description *scene_desc)
-{
-	game->vectors.player_position[X]
-		= scene_desc->player.position[X] + 0.5; // so that we are in the middle of that square
-	game->vectors.player_position[Y]
-		= scene_desc->player.position[Y] + 0.5; // same as above // or minus - ?
-	if (!init_directions_no_so(
-			scene_desc->player.direction, &(game->vectors)))
-		init_directions_we_ea(
-			scene_desc->player.direction, &(game->vectors));
-}
 
 void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 {
@@ -70,24 +19,28 @@ void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 		cast->direction[X] = -1;
 		cast->player_to_tile_border[X] = (game->vectors.player_position[X]
 				- cast->tile[X]) * cast->tile_border_distance[X];
+		cast->potential_wall_direction[X] = WE;
 	}
 	else
 	{
 		cast->direction[X] = 1;
 		cast->player_to_tile_border[X] = (cast->tile[X] + 1.0 \
 			- game->vectors.player_position[X]) * cast->tile_border_distance[X];
+		cast->potential_wall_direction[X] = EA;
 	}
 	if (cast->ray_vector[Y] < 0)
 	{
 		cast->direction[Y] = -1;
 		cast->player_to_tile_border[Y] = (game->vectors.player_position[Y]
 				- cast->tile[Y]) * cast->tile_border_distance[Y];
+		cast->potential_wall_direction[Y] = NO;
 	}
 	else
 	{
 		cast->direction[Y] = 1;
 		cast->player_to_tile_border[Y] = (cast->tile[Y] + 1.0 \
 			- game->vectors.player_position[Y]) * cast->tile_border_distance[Y];
+		cast->potential_wall_direction[Y] = SO;
 	}
 }
 
@@ -111,30 +64,16 @@ void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
 			break ;
 	}
 	if (cast->hit_border == NO_SO)
+	{
 		cast->result_wall_distance = cast->player_to_tile_border[X]
 			- cast->tile_border_distance[X];
+		cast->result_wall_direction = cast->potential_wall_direction[X];
+	}
 	else
+	{
 		cast->result_wall_distance = cast->player_to_tile_border[Y]
 			- cast->tile_border_distance[Y];
-}
-
-void	put_square(t_square_data *square)
-{
-	int	iter[2];
-
-	iter[Y] = 0;
-	while (iter[Y] < square->length[Y]
-		&& iter[Y] + square->start_pixel[Y] < (int)square->mlx_img->height)
-	{
-		iter[X] = 0;
-		while (iter[X] < square->length[X]
-			&& iter[X] + square->start_pixel[X] < (int)square->mlx_img->width)
-		{
-			mlx_put_pixel(square->mlx_img, square->start_pixel[X] + iter[X],
-				square->start_pixel[Y] + iter[Y], square->color);
-			iter[X]++;
-		}
-		iter[Y]++;
+		cast->result_wall_direction = cast->potential_wall_direction[Y];
 	}
 }
 
@@ -144,6 +83,8 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 	int	wall_height;
 	int	first_pixel;
 	int	last_pixel;
+
+	int colors[4] = {0xFF0000EE, 0x00FF00EE, 0x0000FFEE, 0xFFFF00EE};
 
 	wall_height = (int)(SCREENHEIGHT * WALLHEIGHT) / cast->result_wall_distance;
 	first_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) - (wall_height / 2);
@@ -155,7 +96,7 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 	//later textures, now just some color
 	while (first_pixel <= last_pixel)
 	{
-		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, 0xFF0000EE);
+		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, colors[cast->result_wall_direction]);
 		first_pixel++;
 	}
 	(void)scene_desc;
@@ -229,6 +170,7 @@ void	raycasting_loop(void *bundle)
 	check_forward_back_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
 	check_left_right_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
 	check_rotation(&(game->vectors), game->mlx_ptr);
+	paste_png(game, "textures/pride_textures/bisexual_pride_flag.png");
 }
 
 int	main(int argc, const char *argv[])

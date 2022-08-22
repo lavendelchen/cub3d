@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 18:05:59 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 20:28:01 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ typedef struct s_raycasting_calc
 	double	player_to_tile_border[2];	// sideDistX / sideDistY
 	short	direction[2];				// stepX / stepY
 	short	hit_border;					// side
+	short	potential_wall_direction[2];
+	short	result_wall_direction;
 	double	result_wall_distance;
+	double	result_wall_hitpoint;
 }	t_raycasting_calc;
 
 typedef struct s_square_data
@@ -125,6 +128,8 @@ int		parser(const char *scene_description_file_path, t_scene_description *scene_
 
 void	print_data(struct s_vectors *vectors);
 
+void	init_game(t_game *game, t_scene_description *scene_desc);
+
 void	check_left_right_movement(
 		struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
 void	check_forward_back_movement(
@@ -135,5 +140,8 @@ void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
 /* Close Utils */
 void	close_at_esc(mlx_key_data_t key_data, void *arg);
 void	free_at_window_close(void *arg);
+/* Draw Utils */
+void	paste_png(t_game *game, char *png);
+void	put_square(t_square_data *square);
 
 #endif

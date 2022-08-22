@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 23:09:48 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 17:31:52 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	init_game(t_game *game, t_scene_description *scene_desc)
 			scene_desc->player.direction, &(game->vectors)))
 		init_directions_we_ea(
 			scene_desc->player.direction, &(game->vectors));
-	game->current_frame_time = 0;
-	game->last_frame_time = 0;
 }
 
 void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
@@ -148,12 +146,12 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 	int	last_pixel;
 
 	wall_height = (int)(SCREENHEIGHT * WALLHEIGHT) / cast->result_wall_distance;
-	first_pixel = (SCREENHEIGHT / 2) - (wall_height / 2);
+	first_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) - (wall_height / 2);
 	if (first_pixel < 0)
 		first_pixel = 0;
-	last_pixel = (SCREENHEIGHT / 2) + (wall_height / 2);
-	if (last_pixel >= SCREENHEIGHT)
-		last_pixel = SCREENHEIGHT - 1;
+	last_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) + (wall_height / 2);
+	if (last_pixel >= (SCREENHEIGHT * WALLHEIGHT))
+		last_pixel = SCREENHEIGHT * WALLHEIGHT - 1;
 	//later textures, now just some color
 	while (first_pixel <= last_pixel)
 	{
@@ -165,7 +163,7 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 
 void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
 {
-	cast->camera_plane_part = (ray_iter * 2 / SCREENWIDTH) - 1;
+	cast->camera_plane_part = (ray_iter * 2 / (double)SCREENWIDTH) - 1;
 	cast->ray_vector[X] = game->vectors.player_direction[X]
 		+ (game->vectors.camera_plane[X] * cast->camera_plane_part);
 	cast->ray_vector[Y] = game->vectors.player_direction[Y]
@@ -209,104 +207,9 @@ void	print_data(struct s_vectors *vectors)
 	printf("Camera plane Y: [%f]\n", vectors->camera_plane[Y]);
 }
 
-void	check_left_right_movement(
-	struct s_vectors *vectors, char **map, mlx_t *mlx_ptr)
-{
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_D))
-	{
-		if (map[(int)(vectors->player_position[X] - (vectors->player_direction[Y]
-		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
-			vectors->player_position[X]
-			-= vectors->player_direction[Y] * MOVESPEED;
-		if (map[(int)vectors->player_position[X]]
-		[(int)(vectors->player_position[Y] + (vectors->player_direction[X]
-		* MOVESPEED))] != '1')
-			vectors->player_position[Y]
-			+= vectors->player_direction[X] * MOVESPEED;
-		print_data(vectors);
-	}
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_A))
-	{
-		if (map[(int)(vectors->player_position[X] + (vectors->player_direction[Y]
-		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
-			vectors->player_position[X]
-			+= vectors->player_direction[Y] * MOVESPEED;
-		if (map[(int)vectors->player_position[X]]
-		[(int)(vectors->player_position[Y] - (vectors->player_direction[X]
-		* MOVESPEED))] != '1')
-			vectors->player_position[Y]
-			-= vectors->player_direction[X] * MOVESPEED;
-		print_data(vectors);
-	}
-}
-
-void	check_forward_back_movement(
-	struct s_vectors *vectors, char **map, mlx_t *mlx_ptr)
-{
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_W))
-	{
-		if (map[(int)(vectors->player_position[X] + (vectors->player_direction[X]
-		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
-			vectors->player_position[X]
-			+= vectors->player_direction[X] * MOVESPEED;
-		if (map[(int)vectors->player_position[X]]
-		[(int)(vectors->player_position[Y] + (vectors->player_direction[Y]
-		* MOVESPEED))] != '1')
-			vectors->player_position[Y]
-			+= vectors->player_direction[Y] * MOVESPEED;
-		print_data(vectors);
-	}
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_S))
-	{
-		if (map[(int)(vectors->player_position[X] - (vectors->player_direction[X]
-		* MOVESPEED))][(int)vectors->player_position[Y]] != '1')
-			vectors->player_position[X]
-			-= vectors->player_direction[X] * MOVESPEED;
-		if (map[(int)vectors->player_position[X]]
-		[(int)(vectors->player_position[Y] - (vectors->player_direction[Y]
-		* MOVESPEED))] != '1')
-			vectors->player_position[Y]
-			-= vectors->player_direction[Y] * MOVESPEED;
-		print_data(vectors);
-	}
-}
-
-void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr)
-{
-	double	old_player_dir[1];
-	double	old_camera_plane[1];
-
-	old_player_dir[X] = vectors->player_direction[X];
-	old_camera_plane[X] = vectors->camera_plane[X];
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_LEFT))
-	{
-		vectors->player_direction[X] = vectors->player_direction[X] * cos(-ROTSPEED)
-		- vectors->player_direction[Y] * sin(-ROTSPEED);
-		vectors->player_direction[Y] = old_player_dir[X] * sin(-ROTSPEED)
-		+ vectors->player_direction[Y] * cos(-ROTSPEED);
-		vectors->camera_plane[X] = vectors->camera_plane[X]
-		* cos(-ROTSPEED) - vectors->camera_plane[Y] * sin(-ROTSPEED);
-		vectors->camera_plane[Y] = old_camera_plane[X] * sin(-ROTSPEED)
-		+ vectors->camera_plane[Y] * cos(-ROTSPEED);
-		print_data(vectors);
-	}
-	if (mlx_is_key_down(mlx_ptr, MLX_KEY_RIGHT))
-	{
-		vectors->player_direction[X] = vectors->player_direction[X] * cos(ROTSPEED)
-		- vectors->player_direction[Y] * sin(ROTSPEED);
-		vectors->player_direction[Y] = old_player_dir[X] * sin(ROTSPEED)
-		+ vectors->player_direction[Y] * cos(ROTSPEED);
-		vectors->camera_plane[X] = vectors->camera_plane[X]
-		* cos(ROTSPEED) - vectors->camera_plane[Y] * sin(ROTSPEED);
-		vectors->camera_plane[Y] = old_camera_plane[X] * sin(ROTSPEED)
-		+ vectors->camera_plane[Y] * cos(ROTSPEED);
-		print_data(vectors);
-	}
-}
-
 void	raycasting_loop(void *bundle)
 {
-	static int					ray_iter;
+	static int					ray_iter;	// x
 	static t_raycasting_calc	cast;
 	t_game						*game;
 	t_scene_description			*scene_desc;

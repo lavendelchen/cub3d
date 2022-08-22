@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/21 23:11:17 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 18:05:59 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ enum e_screensize
 #define FOV 0.66 //remove the [0.] and you have the angle of the field of vision
 #define WALLHEIGHT 1 // value 1 means 1 tile will have equal wall height and width. higher wallheight will make higher walls, lower wallheight will make smaller ones.
 
-#define MOVESPEED 0.005 // multiplier for movement velocity, make higher for faster movement
-#define ROTSPEED 0.003 // mltiplier for rotation velocity, make higher for faster rotation
+#define MOVESPEED 0.03 // multiplier for movement velocity, make higher for faster movement
+#define ROTSPEED 0.02 // mltiplier for rotation velocity, make higher for faster rotation
 
 /* -------------------------------- */
 
@@ -88,12 +88,10 @@ typedef struct s_game
 	mlx_image_t	*mlx_img; // for now
 	struct s_vectors
 	{
-		double	player_position[2]; // do we start at the corner of a tile
-		double	player_direction[2];
-		double	camera_plane[2];
+		double	player_position[2];		// posX / posY
+		double	player_direction[2];	// dirX / dirY
+		double	camera_plane[2];		// planeX / planeY
 	}	vectors;
-	double	current_frame_time;
-	double	last_frame_time;
 }	t_game;
 
 typedef struct s_bundle
@@ -104,13 +102,13 @@ typedef struct s_bundle
 
 typedef struct s_raycasting_calc
 {
-	double	camera_plane_part;
-	double	ray_vector[2];
-	int		tile[2];
-	double	tile_border_distance[2];
-	double	player_to_tile_border[2];
-	short	direction[2];
-	short	hit_border;
+	double	camera_plane_part;			// cameraX
+	double	ray_vector[2];				// rayDirX / rayDirY
+	int		tile[2];					// mapX / mapY
+	double	tile_border_distance[2];	// deltaDistX / deltaDistY
+	double	player_to_tile_border[2];	// sideDistX / sideDistY
+	short	direction[2];				// stepX / stepY
+	short	hit_border;					// side
 	double	result_wall_distance;
 }	t_raycasting_calc;
 
@@ -124,6 +122,14 @@ typedef struct s_square_data
 
 int		rgba(int r, int g, int b, int a);
 int		parser(const char *scene_description_file_path, t_scene_description *scene_description);
+
+void	print_data(struct s_vectors *vectors);
+
+void	check_left_right_movement(
+		struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
+void	check_forward_back_movement(
+		struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
+void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
 
 /* UTILS */
 /* Close Utils */

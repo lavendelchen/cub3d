@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:26:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/08 22:47:18 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:23:53 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define INVALID_IDENTIFIER_ERROR "Error\nInvalid Identifier in .cub file\n"
 # define INVALID_COLOR_ERROR "Error\nInvalid Color in .cub file\n"
 # define INVALID_MAP_ERROR "Error\nInvalid Map in .cub file\n"
+# define INVALID_TEXTURE_PATH "Error\nInvalid Texture Path in .cub file\n"
 
 # include <fcntl.h>
 # include <stdbool.h>

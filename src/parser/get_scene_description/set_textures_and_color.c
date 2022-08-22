@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 22:44:09 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/08 22:46:29 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:38:17 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static int	set_texture(
 
 	if (has_been_set_count >= 4)
 		return (print_error_return(INVALID_IDENTIFIER_ERROR, 1));
-//	if (!is_readable_file(path))
-//		return (EXIT_FAILURE);
+	if (!is_readable_file(path))
+		return (print_error_return(INVALID_TEXTURE_PATH, 1));
 	if (ft_strcmp(identifier, "NO") == 0)
 		scene_description->textures[NO] = ft_strdup(path);
 	else if (ft_strcmp(identifier, "SO") == 0)

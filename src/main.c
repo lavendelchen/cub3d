@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:09:57 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 20:22:40 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,28 @@ void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 		cast->direction[X] = -1;
 		cast->player_to_tile_border[X] = (game->vectors.player_position[X]
 				- cast->tile[X]) * cast->tile_border_distance[X];
-		cast->potential_wall[X] = WE;
+		cast->potential_wall_direction[X] = WE;
 	}
 	else
 	{
 		cast->direction[X] = 1;
 		cast->player_to_tile_border[X] = (cast->tile[X] + 1.0 \
 			- game->vectors.player_position[X]) * cast->tile_border_distance[X];
-		cast->potential_wall[X] = EA;
+		cast->potential_wall_direction[X] = EA;
 	}
 	if (cast->ray_vector[Y] < 0)
 	{
 		cast->direction[Y] = -1;
 		cast->player_to_tile_border[Y] = (game->vectors.player_position[Y]
 				- cast->tile[Y]) * cast->tile_border_distance[Y];
-		cast->potential_wall[Y] = NO;
+		cast->potential_wall_direction[Y] = NO;
 	}
 	else
 	{
 		cast->direction[Y] = 1;
 		cast->player_to_tile_border[Y] = (cast->tile[Y] + 1.0 \
 			- game->vectors.player_position[Y]) * cast->tile_border_distance[Y];
+		cast->potential_wall_direction[Y] = SO;
 	}
 }
 
@@ -63,11 +64,17 @@ void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
 			break ;
 	}
 	if (cast->hit_border == NO_SO)
+	{
 		cast->result_wall_distance = cast->player_to_tile_border[X]
 			- cast->tile_border_distance[X];
+		cast->result_wall_direction = cast->potential_wall_direction[X];
+	}
 	else
+	{
 		cast->result_wall_distance = cast->player_to_tile_border[Y]
 			- cast->tile_border_distance[Y];
+		cast->result_wall_direction = cast->potential_wall_direction[Y];
+	}
 }
 
 void	draw_wall(t_raycasting_calc *cast, t_game *game,
@@ -76,6 +83,8 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 	int	wall_height;
 	int	first_pixel;
 	int	last_pixel;
+
+	int colors[4] = {0xFF0000EE, 0x00FF00EE, 0x0000FFEE, 0xFFFF00EE};
 
 	wall_height = (int)(SCREENHEIGHT * WALLHEIGHT) / cast->result_wall_distance;
 	first_pixel = (SCREENHEIGHT * WALLHEIGHT / 2) - (wall_height / 2);
@@ -87,7 +96,7 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game,
 	//later textures, now just some color
 	while (first_pixel <= last_pixel)
 	{
-		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, 0xFF0000EE);
+		mlx_put_pixel(game->mlx_img, ray_iter, first_pixel, colors[cast->result_wall_direction]);
 		first_pixel++;
 	}
 	(void)scene_desc;

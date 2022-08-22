@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:10:36 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 20:28:01 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ typedef struct s_raycasting_calc
 	double	player_to_tile_border[2];	// sideDistX / sideDistY
 	short	direction[2];				// stepX / stepY
 	short	hit_border;					// side
-	short	potential_wall[2];
+	short	potential_wall_direction[2];
+	short	result_wall_direction;
 	double	result_wall_distance;
+	double	result_wall_hitpoint;
 }	t_raycasting_calc;
 
 typedef struct s_square_data

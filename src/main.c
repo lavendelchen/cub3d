@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 17:31:52 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 19:49:26 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,28 @@ void	print_data(struct s_vectors *vectors)
 	printf("Player direction Y: [%f]\n", vectors->player_direction[Y]);
 	printf("Camera plane X: [%f]\n", vectors->camera_plane[X]);
 	printf("Camera plane Y: [%f]\n", vectors->camera_plane[Y]);
+}
+
+void	paste_png(t_game *game, char *png)
+{
+	mlx_texture_t*	tex = mlx_load_png(png);
+	//mlx_image_t*	img = mlx_texture_to_image(game->mlx_ptr, tex);
+
+	int	image[2];
+	int	iter;
+	image[Y] = 0;
+	iter = 0;
+	while (image[Y] < (int)tex->height)
+	{
+		image[X] = 0;
+		while (image[X] < (int)tex->width)
+		{
+			mlx_put_pixel(game->mlx_img, image[X] + 300, image[Y] + 300, rgba(tex->pixels[iter], tex->pixels[iter + 1], tex->pixels[iter + 2], tex->pixels[iter + 3]));
+			iter += 4;
+			image[X]++;
+		}
+		image[Y]++;
+	}
 }
 
 void	raycasting_loop(void *bundle)

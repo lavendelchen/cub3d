@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:04:32 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:13:14 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	main(int argc, const char *argv[])
 		return (EXIT_FAILURE);
 	bundle.game = &game;
 	bundle.scene_desc = &scene_desc;
-	init_game(&game, &scene_desc);
+	if (init_game(&game, &scene_desc) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	game.mlx_ptr = mlx_init(SCREENWIDTH, SCREENHEIGHT, "🌈RainbowCube🌈", false);
 	game.mlx_img = mlx_new_image(game.mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	mlx_image_to_window(game.mlx_ptr, game.mlx_img, 0, 0);

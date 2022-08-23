@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 22:09:31 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:20:46 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ typedef struct s_square_data
 
 /* Functions */
 
-void	init_game(t_game *game, t_scene_description *scene_desc);
+int		init_game(t_game *game, t_scene_description *scene_desc);
 
 /* PARSER */
 int		parser(

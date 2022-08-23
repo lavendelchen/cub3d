@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:46:00 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:21:09 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static inline void	init_directions_we_ea(
 player_position gets added 0.5 so we don't start at the corner
 of the starting tile, but the middle of it
 */
-void	init_game(t_game *game, t_scene_description *scene_desc)
+int	init_game(t_game *game, t_scene_description *scene_desc)
 {
 	game->vectors.player_position[X]
 		= scene_desc->player.position[X] + 0.5;
@@ -73,4 +73,11 @@ void	init_game(t_game *game, t_scene_description *scene_desc)
 	game->wall[SO] = mlx_load_png(scene_desc->textures[SO]);
 	game->wall[WE] = mlx_load_png(scene_desc->textures[WE]);
 	game->wall[EA] = mlx_load_png(scene_desc->textures[EA]);
+	if (!game->wall[NO] || !game->wall[SO]
+		|| !game->wall[WE] || !game->wall[EA])
+	{
+		ft_putstr_fd("Error\nPNG could not be loaded", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

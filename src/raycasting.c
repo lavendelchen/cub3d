@@ -6,12 +6,51 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:55:36 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:04:31 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:45:50 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+
+
+void	wall_hit_calc_result(t_raycasting_calc *cast)
+{
+	if (cast->hit_border == NO_SO)
+	{
+		cast->wall_distance = cast->player_to_tile_border[X]
+			- cast->tile_border_distance[X];
+		cast->wall_direction = cast->potential_wall_direction[X];
+	}
+	else
+	{
+		cast->wall_distance = cast->player_to_tile_border[Y]
+			- cast->tile_border_distance[Y];
+		cast->wall_direction = cast->potential_wall_direction[Y];
+	}
+}
+
+void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
+{
+	while (true)
+	{
+		if (cast->player_to_tile_border[X] < cast->player_to_tile_border[Y])
+		{
+			cast->player_to_tile_border[X] += cast->tile_border_distance[X];
+			cast->tile[X] += cast->direction[X];
+			cast->hit_border = NO_SO;
+		}
+		else
+		{
+			cast->player_to_tile_border[Y] += cast->tile_border_distance[Y];
+			cast->tile[Y] += cast->direction[Y];
+			cast->hit_border = WE_EA;
+		}
+		if (scene_desc->map_content[cast->tile[Y]][cast->tile[X]] == '1')
+			break ;
+	}
+	wall_hit_calc_result(cast);
+}
 
 void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 {
@@ -42,39 +81,6 @@ void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game)
 		cast->player_to_tile_border[Y] = (cast->tile[Y] + 1.0 \
 			- game->vectors.player_position[Y]) * cast->tile_border_distance[Y];
 		cast->potential_wall_direction[Y] = SO;
-	}
-}
-
-void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc)
-{
-	while (true)
-	{
-		if (cast->player_to_tile_border[X] < cast->player_to_tile_border[Y])
-		{
-			cast->player_to_tile_border[X] += cast->tile_border_distance[X];
-			cast->tile[X] += cast->direction[X];
-			cast->hit_border = NO_SO; //correct?
-		}
-		else
-		{
-			cast->player_to_tile_border[Y] += cast->tile_border_distance[Y];
-			cast->tile[Y] += cast->direction[Y];
-			cast->hit_border = WE_EA; //correct?
-		}
-		if (scene_desc->map_content[cast->tile[Y]][cast->tile[X]] == '1')
-			break ;
-	}
-	if (cast->hit_border == NO_SO)
-	{
-		cast->wall_distance = cast->player_to_tile_border[X]
-			- cast->tile_border_distance[X];
-		cast->wall_direction = cast->potential_wall_direction[X];
-	}
-	else
-	{
-		cast->wall_distance = cast->player_to_tile_border[Y]
-			- cast->tile_border_distance[Y];
-		cast->wall_direction = cast->potential_wall_direction[Y];
 	}
 }
 
@@ -132,7 +138,6 @@ void	raycasting_loop(void *bundle)
 		draw_wall(&cast, game, ray_iter);
 		ray_iter++;
 	}
-	move_forward_back(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
-	move_left_right(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
-	rotate(&(game->vectors), game->mlx_ptr);
+	check_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
+	check_rotation(&(game->vectors), game->mlx_ptr);
 }

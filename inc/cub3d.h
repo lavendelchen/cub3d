@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:19:32 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:44:56 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,18 +194,9 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter);
 
 /* MOVEMENT */
 /* move */
-void	move_left_right(
-			struct s_vectors *vectors,
-			char **map,
-			mlx_t *mlx_ptr
-			);
-void	move_forward_back(
-			struct s_vectors *vectors,
-			char **map,
-			mlx_t *mlx_ptr
-			);
+void	check_movement(struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
 /* rotate */
-void	rotate(struct s_vectors *vectors, mlx_t *mlx_ptr);
+void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
 
 /* UTILS */
 /* Close Utils */

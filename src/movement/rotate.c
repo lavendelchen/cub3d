@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 16:10:46 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 20:02:02 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:42:31 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline void	rotate_right(
 	print_data(vectors);
 }
 
-void	rotate(struct s_vectors *vectors, mlx_t *mlx_ptr)
+void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr)
 {
 	double	old_player_dir[1];
 	double	old_camera_plane[1];

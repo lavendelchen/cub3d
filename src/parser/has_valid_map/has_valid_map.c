@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 22:26:07 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/08 22:39:59 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:22:53 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ bool	has_valid_map(const char *scene_file_path)
 			player_count += 1;
 		i += 1;
 	}
+	if (!has_valid_walls(scene_file_path))
+		return (free_map_return(map, false));
 	if (player_count != 1)
 		return (free_map_return(map, false));
 	return (free_map_return(map, true));

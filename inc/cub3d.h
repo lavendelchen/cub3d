@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 19:56:29 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 20:19:32 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,9 @@ int		parser(
 
 void	print_data(struct s_vectors *vectors);
 
-void	raycasting_loop(void *bundle);
 void	init_game(t_game *game, t_scene_description *scene_desc);
+void	raycasting_loop(void *bundle);
+void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter);
 
 /* MOVEMENT */
 /* move */
@@ -204,7 +205,7 @@ void	move_forward_back(
 			mlx_t *mlx_ptr
 			);
 /* rotate */
-void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
+void	rotate(struct s_vectors *vectors, mlx_t *mlx_ptr);
 
 /* UTILS */
 /* Close Utils */

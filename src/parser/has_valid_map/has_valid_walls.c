@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:50:56 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 21:46:28 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:14:26 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,16 @@ static inline bool	is_valid_plus(char *map[], int i, int j)
 
 static inline bool	is_valid(char *map[], int i, int j)
 {
+	if (map[i - 1])
+	{
+		if (ft_strlen(map[i - 1]) < j)
+			return (false);
+	}
+	if (map[i + 1])
+	{
+		if (ft_strlen(map[i + 1]) < j)
+			return (false);
+	}
 	return (is_valid_minus(map, i, j) && is_valid_plus(map, i, j));
 }
 

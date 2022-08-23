@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 22:29:03 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/08 22:30:12 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:36:39 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ bool	is_in_map(const char *line)
 	if (ft_strchr(line, '1') == NULL && ft_strchr(line, '0') == NULL
 		&& ft_strchr(line, 'N') == NULL && ft_strchr(line, 'S') == NULL
 		&& ft_strchr(line, 'E') == NULL && ft_strchr(line, 'W') == NULL)
+		return (false);
+	return (true);
+}
+
+bool	line_has_valid_walls(
+			char *line_to_check, int j, const char *original_line
+			);
+
+bool	is_neighbor_to_wall_char(char *map[], int i, int j)
+{
+	if (i != 0 && !line_has_valid_walls(map[i - 1], j, map[i]))
+		return (false);
+	if (!line_has_valid_walls(map[i], j, map[i]))
+		return (false);
+	if (map[i + 1] != NULL && !line_has_valid_walls(map[i + 1], j, map[i]))
 		return (false);
 	return (true);
 }

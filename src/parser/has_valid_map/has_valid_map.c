@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 22:26:07 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 21:22:53 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:36:24 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	has_player(char *line)
 	return (true);
 }
 
-static inline bool	line_has_valid_walls(
+bool	line_has_valid_walls(
 	char *line_to_check, int j, const char *original_line
 	)
 {
@@ -60,14 +60,22 @@ static inline bool	line_has_valid_walls(
 	return (true);
 }
 
-bool	is_neighbor_to_wall_char(char *map[], int i, int j)
+static inline bool	has_valid_char(char *line)
 {
-	if (i != 0 && !line_has_valid_walls(map[i - 1], j, map[i]))
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '0' || line[i] == '1' || line[i] == 'N' \
+		|| line[i] == 'S' || line[i] == 'E' || line[i] == 'W' \
+		|| line[i] == '\n')
+		{
+			i += 1;
+			continue ;
+		}
 		return (false);
-	if (!line_has_valid_walls(map[i], j, map[i]))
-		return (false);
-	if (map[i + 1] != NULL && !line_has_valid_walls(map[i + 1], j, map[i]))
-		return (false);
+	}
 	return (true);
 }
 
@@ -82,6 +90,8 @@ bool	has_valid_map(const char *scene_file_path)
 	i = 0;
 	while (map[i])
 	{
+		if (!has_valid_char(map[i]))
+			return (free_map_return(map, false));
 		if ((map[i + 1] != NULL && map[i][ft_strlen(map[i]) - 1] != '\n') \
 		|| is_open_wall(map, i) \
 		|| (map[i + 1] != NULL && is_empty_line(map[i + 1])) \

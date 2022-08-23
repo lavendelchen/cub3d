@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:42:20 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:53:53 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_vectors
 typedef struct s_game
 {
 	mlx_t			*mlx_ptr;
-	mlx_image_t		*mlx_img; // for now
+	mlx_image_t		*mlx_img;
 	mlx_texture_t	*wall[4];
 	t_vectors		vectors;
 }	t_game;

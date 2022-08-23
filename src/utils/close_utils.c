@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:53:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/22 16:53:19 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:06:29 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,8 @@ void	free_at_window_close(void *arg)
 	free(bundle->scene_desc->textures[2]);
 	free(bundle->scene_desc->textures[3]);
 	mlx_delete_image(bundle->game->mlx_ptr, bundle->game->mlx_img);
+	mlx_delete_texture(bundle->game->wall[NO]);
+	mlx_delete_texture(bundle->game->wall[SO]);
+	mlx_delete_texture(bundle->game->wall[WE]);
+	mlx_delete_texture(bundle->game->wall[EA]);
 }

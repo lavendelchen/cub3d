@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:28:01 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 22:07:56 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ typedef struct s_scene_description
 
 typedef struct s_game
 {
-	mlx_t		*mlx_ptr;
-	mlx_image_t	*mlx_img; // for now
+	mlx_t			*mlx_ptr;
+	mlx_image_t		*mlx_img; // for now
+	mlx_texture_t	*wall[4];
 	struct s_vectors
 	{
 		double	player_position[2];		// posX / posY
@@ -108,12 +109,22 @@ typedef struct s_raycasting_calc
 	double	tile_border_distance[2];	// deltaDistX / deltaDistY
 	double	player_to_tile_border[2];	// sideDistX / sideDistY
 	short	direction[2];				// stepX / stepY
-	short	hit_border;					// side
+	short	hit_border;					// side | NO_SO = 0, WE_EA = 1
 	short	potential_wall_direction[2];
-	short	result_wall_direction;
-	double	result_wall_distance;
-	double	result_wall_hitpoint;
+	short	wall_direction;
+	double	wall_distance;		// perpWallDist
 }	t_raycasting_calc;
+
+typedef struct s_texture_calc
+{
+	int		wall_height; //lineHeight
+	int		first_pixel;
+	int		last_pixel;
+	double	wall_hitpoint; //wallX
+	double	step;
+	int		texture_pixel[2]; //texX
+	double	texture_position;
+}	t_texture_calc;
 
 typedef struct s_square_data
 {
@@ -143,5 +154,6 @@ void	free_at_window_close(void *arg);
 /* Draw Utils */
 void	paste_png(t_game *game, char *png);
 void	put_square(t_square_data *square);
+void	paste_texture(mlx_texture_t *tex, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:57:21 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:09:44 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/22 21:04:35 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ void	paste_png(t_game *game, char *png)
 	mlx_texture_t*	tex = mlx_load_png(png);
 	//mlx_image_t*	img = mlx_texture_to_image(game->mlx_ptr, tex);
 
+	int	image[2];
+	int	iter;
+	image[Y] = 0;
+	iter = 0;
+	while (image[Y] < (int)tex->height)
+	{
+		image[X] = 0;
+		while (image[X] < (int)tex->width)
+		{
+			mlx_put_pixel(game->mlx_img, image[X] + 300, image[Y] + 300, rgba(tex->pixels[iter], tex->pixels[iter + 1], tex->pixels[iter + 2], tex->pixels[iter + 3]));
+			iter += 4;
+			image[X]++;
+		}
+		image[Y]++;
+	}
+	mlx_delete_texture(tex);
+}
+
+void	paste_texture(mlx_texture_t *tex, t_game *game)
+{
 	int	image[2];
 	int	iter;
 	image[Y] = 0;

@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:42:20 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:08:35 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,31 @@
 # include <memory.h>
 # include <math.h>
 
-/* RGBA / UTILS */
-int		rgba(int r, int g, int b, int a);
+/* Modifiable stuff to modify the game! */
 
-/* Parser */
+enum e_screensize
+{
+	SCREENWIDTH = 1920,
+	SCREENHEIGHT = 1080
+};
+
+/** @brief remove the [0.] and you have the angle of the field of vision */
+# define FOV 0.66
+
+/**
+ * @brief value 1 means 1 tile will have equal wall height and width. 
+ * @param higher wallheight will make higher walls
+ * @param lower wallheight will make smaller ones.
+ */
+# define WALLHEIGHT 1
+
+/** @brief multiplier for movement velocity, make higher for faster movement */
+# define MOVESPEED 0.03
+
+/** @brief multiplier for rotation velocity, make higher for faster rotation*/
+# define ROTSPEED 0.02
+
+/* Defines */
 
 enum e_direction
 {
@@ -50,35 +71,7 @@ enum e_borders
 	WE_EA = 1
 };
 
-/* Modifiable stuff to modify the game! */
-
-enum e_screensize
-{
-	SCREENWIDTH = 1920,
-	SCREENHEIGHT = 1080
-};
-
-/**
- * @brief remove the [0.] and you have the angle of the field of vision
- */
-# define FOV 0.66 
-/**
- * @brief value 1 means 1 tile will have equal wall height and width. 
- * @param higher wallheight will make higher walls
- * @param lower wallheight will make smaller ones.
- */
-# define WALLHEIGHT 1
-
-/**
- * @brief multiplier for movement velocity, make higher for faster movement
- */
-# define MOVESPEED 0.03
-/**
- * @brief mltiplier for rotation velocity, make higher for faster rotation
- */
-# define ROTSPEED 0.02
-
-/* -------------------------------- */
+/* Structs */
 
 typedef struct s_player
 {
@@ -118,7 +111,7 @@ typedef struct s_vectors
 typedef struct s_game
 {
 	mlx_t			*mlx_ptr;
-	mlx_image_t		*mlx_img; // for now
+	mlx_image_t		*mlx_img;
 	mlx_texture_t	*wall[4];
 	t_vectors		vectors;
 }	t_game;
@@ -138,8 +131,8 @@ typedef struct s_bundle
  * @param player_to_tile_border sideDistX / sideDistY
  * @param direction stepX / stepY
  * @param hit_border side | NO_SO = 0, WE_EA = 1
- * @param potential_wall_direction
- * @param wall_direction
+ * @param potential_wall_direction to connect textures to cardinal directions
+ * @param wall_direction same as above
  * @param wall_distance perpWallDist
  * 
  */
@@ -160,12 +153,12 @@ typedef struct s_raycasting_calc
 /**
  * @brief 
  * @param wall_height lineHeight
- * @param first_pixel
- * @param last_pixel
+ * @param first_pixel drawStart
+ * @param last_pixel drawEnd
  * @param wall_hitpoint wallX
- * @param step
- * @param texture_pixel texX
- * @param texture_position
+ * @param step step
+ * @param texture_pixel texX / texY
+ * @param texture_position texPos
  * 
  */
 typedef struct s_texture_calc
@@ -179,6 +172,10 @@ typedef struct s_texture_calc
 	double	texture_position;
 }	t_texture_calc;
 
+/** 
+ * @brief used by "put_square" function.
+ * define traits of the square you want to put.
+*/
 typedef struct s_square_data
 {
 	mlx_image_t	*mlx_img;
@@ -187,18 +184,20 @@ typedef struct s_square_data
 	int			color;
 }	t_square_data;
 
-int		rgba(int r, int g, int b, int a);
+/* Functions */
+
+void	init_game(t_game *game, t_scene_description *scene_desc);
+
+/* PARSER */
 int		parser(
 			const char *scene_description_file_path,
 			t_scene_description *scene_description
 			);
 
-void	init_game(t_game *game, t_scene_description *scene_desc);
+/* RAYCASTING */
 void	raycasting_loop(void *bundle);
-
 void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game);
 void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc);
-
 void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter);
 
 /* MOVEMENT */
@@ -208,6 +207,7 @@ void	check_movement(struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
 void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
 
 /* UTILS */
+int		rgba(int r, int g, int b, int a);
 /* Close Utils */
 void	close_at_esc(mlx_key_data_t key_data, void *arg);
 void	free_at_window_close(void *arg);

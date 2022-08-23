@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile_Unix.mk                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/23 21:41:50 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/23 21:50:06 by shaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,9 @@ norm:
 				@printf $(CYAN)"Checking Norminette on $(DIR_SRC)\n"$(RESET)
 				@printf "norminette $(DIR_SRC)\n"
 				@norminette $(DIR_SRC) | grep Error | egrep --color '.*Error!|$$' || true
+				@printf $(CYAN)"Checking Norminette on $(DIR_INC)\n"$(RESET)
+				@printf "norminette $(DIR_INC)\n"
+				@norminette $(DIR_INC) | grep Error | egrep --color '.*Error!|$$' || true
 
 clean:
 				@rm -rf $(DIR_OBJ)

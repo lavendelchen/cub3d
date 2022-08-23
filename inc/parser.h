@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:26:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 20:04:07 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:38:48 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ bool	is_empty_line(const char *line);
 int		print_error_return(const char *error_message, int return_code);
 bool	has_valid_map(const char *scene_file_path);
 bool	has_valid_identifiers(const char *scene_file_path);
+bool	has_non_empty_lines_after_map(const char *scene_file_path);
 
 #endif

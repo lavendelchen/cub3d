@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 22:40:53 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 16:31:08 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	tex_pixel_color(t_texture_calc *tex, mlx_texture_t *wall)
 {
 	int	pixel;
 
-	pixel = tex->texture_pixel[X] * tex->texture_pixel[Y] * 4;
+	pixel = (tex->texture_pixel[X] * tex->texture_pixel[Y]) * 4;
 	return (rgba(wall->pixels[pixel], wall->pixels[pixel + 1],
 				wall->pixels[pixel + 2], wall->pixels[pixel + 3]));
 }
@@ -108,8 +108,8 @@ void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter)
 	if ((cast->hit_border == NO_SO && cast->ray_vector[X] > 0)
 		|| (cast->hit_border == WE_EA && cast->ray_vector[Y] < 0))
 		tex.texture_pixel[X] = game->wall[cast->wall_direction]->width - tex.texture_pixel[X] - 1;
-	tex.step = (double)game->wall[cast->wall_direction]->height / tex.wall_height;
-	tex.texture_position = 0;;
+	tex.step = ((double)game->wall[cast->wall_direction]->height) / tex.wall_height;
+	tex.texture_position = 0;
 	while (tex.first_pixel < tex.last_pixel)
 	{
 		tex.texture_pixel[Y] = (int)tex.texture_position;

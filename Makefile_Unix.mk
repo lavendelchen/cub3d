@@ -6,7 +6,7 @@
 #    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/23 21:06:17 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/23 21:26:10 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)init_game.c \
-					$(DIR_SRC)raycasting.c \
-					$(DIR_SRC)wall_hit_calc.c \
-					$(DIR_SRC)draw_wall.c \
+					$(DIR_SRC)raycasting/raycasting.c \
+					$(DIR_SRC)raycasting/wall_hit_calc.c \
+					$(DIR_SRC)raycasting/draw_wall.c \
 					$(DIR_SRC)movement/move.c \
 					$(DIR_SRC)movement/rotate.c \
 					$(DIR_SRC)utils/rgba.c \

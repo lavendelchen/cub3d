@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wall_hit_calc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:54:34 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:56:11 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:26:52 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 void	wall_hit_calc_result(t_raycasting_calc *cast)
 {

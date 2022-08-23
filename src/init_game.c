@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 22:34:59 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 00:27:27 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,19 @@ static inline void	init_directions_we_ea(
 	}
 }
 
-/* 
+static inline void	init_music(char *start_texture)
+{
+	if (ft_strstr(start_texture, "flag"))
+		system("afplay ./music/nyan-cat.mp3 &");
+	else if (ft_strstr(start_texture, "arcade"))
+		system("afplay ./music/fun-disco.mp3 &");
+	else if (ft_strstr(start_texture, "cloud"))
+		system("afplay ./music/peaceful-garden.mp3 &");
+	else if (ft_strstr(start_texture, "ground"))
+		system("afplay ./music/droplets-in-a-cave.mp3 &");
+}
+
+/*
 player_position gets added 0.5 so we don't start at the corner
 of the starting tile, but the middle of it
 */
@@ -84,5 +96,6 @@ int	init_game(t_game *game, t_scene_description *scene_desc)
 		return (put_error_msg("Error\nMlx image couldn't be allocated\n"));
 	if (mlx_image_to_window(game->mlx_ptr, game->mlx_img, 0, 0) == -1)
 		return (put_error_msg("Error\nImage couldn't be put to window\n"));
+	init_music(scene_desc->textures[scene_desc->player.direction]);
 	return (EXIT_SUCCESS);
 }

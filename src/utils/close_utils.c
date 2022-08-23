@@ -6,20 +6,11 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:53:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 22:35:11 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 00:31:10 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-void	close_at_esc(mlx_key_data_t key_data, void *arg)
-{
-	t_bundle	*bundle;
-
-	bundle = (t_bundle *)arg;
-	if (key_data.key == MLX_KEY_ESCAPE)
-		mlx_close_window(bundle->game->mlx_ptr);
-}
 
 void	free_at_window_close(void *arg)
 {
@@ -36,6 +27,19 @@ void	free_at_window_close(void *arg)
 	mlx_delete_texture(bundle->game->wall[SO]);
 	mlx_delete_texture(bundle->game->wall[WE]);
 	mlx_delete_texture(bundle->game->wall[EA]);
+	system("pkill afplay");
+}
+
+void	close_at_esc(mlx_key_data_t key_data, void *arg)
+{
+	t_bundle	*bundle;
+
+	bundle = (t_bundle *)arg;
+	if (key_data.key == MLX_KEY_ESCAPE)
+	{
+		free_at_window_close(arg);
+		mlx_close_window(bundle->game->mlx_ptr);
+	}
 }
 
 int	put_error_msg(char *msg)

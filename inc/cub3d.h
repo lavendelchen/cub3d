@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 22:35:23 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 00:10:20 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 /* Modifiable stuff to modify the game! */
 
+/** @brief make true if you want fun little music effect :D */
+# define MUSIC true 
+
 enum e_screensize
 {
 	SCREENWIDTH = 1920,
@@ -46,7 +49,7 @@ enum e_screensize
 /** @brief multiplier for movement velocity, make higher for faster movement */
 # define MOVESPEED 0.03
 
-/** @brief multiplier for rotation velocity, make higher for faster rotation*/
+/** @brief multiplier for rotation velocity, make higher for faster rotation */
 # define ROTSPEED 0.02
 
 /* Defines */

@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/24 01:26:43 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 01:45:18 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 /* Modifiable stuff to modify the game! */
 
-/** @brief make true if you want fun little music effect :D */
-# define MUSIC false
+/** @brief make 1 if you want fun little music effect :D */
+# define MUSIC 0
 
 enum e_screensize
 {

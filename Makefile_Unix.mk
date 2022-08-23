@@ -6,7 +6,7 @@
 #    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/23 21:26:10 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/23 21:41:50 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)parser/has_valid_map/has_valid_map.c \
 					$(DIR_SRC)parser/has_valid_map/has_valid_walls.c \
 					$(DIR_SRC)parser/has_valid_map/get_map.c \
+					$(DIR_SRC)parser/has_valid_map/utils.c \
 					$(DIR_SRC)parser/get_scene_description/get_scene_description_from_content.c \
 					$(DIR_SRC)parser/get_scene_description/set_map_from_content.c \
 					$(DIR_SRC)parser/get_scene_description/set_textures_and_color.c \

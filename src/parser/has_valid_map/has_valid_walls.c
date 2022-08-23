@@ -6,12 +6,15 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:50:56 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 21:04:34 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:46:28 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/cub3d.h"
 #include "../../../inc/parser.h"
+
+bool	is_valid_map_char(char ch);
+bool	is_wall(char ch);
 
 static char	**getmap(const char *scene_file_path)
 {
@@ -42,27 +45,7 @@ static char	**getmap(const char *scene_file_path)
 	return (map);
 }
 
-static inline bool	is_valid_map_char(char ch)
-{
-	if (ch == '0')
-		return (true);
-	if (ch == '1')
-		return (true);
-	if (ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W')
-		return (true);
-	if (ch == '\n')
-		return (true);
-	if (ft_isspace(ch))
-		return (false);
-	return (false);
-}
-
-static inline bool	is_wall(char ch)
-{
-	return (ch == '1');
-}
-
-static inline bool	is_valid(char *map[], int i, int j)
+static inline bool	is_valid_minus(char *map[], int i, int j)
 {
 	int	k;
 	int	l;
@@ -79,6 +62,14 @@ static inline bool	is_valid(char *map[], int i, int j)
 		k -= 1;
 		l -= 1;
 	}
+	return (true);
+}
+
+static inline bool	is_valid_plus(char *map[], int i, int j)
+{
+	int	k;
+	int	l;
+
 	k = i;
 	l = j;
 	while (map[k] && map[k][l])
@@ -92,6 +83,11 @@ static inline bool	is_valid(char *map[], int i, int j)
 		l += 1;
 	}
 	return (true);
+}
+
+static inline bool	is_valid(char *map[], int i, int j)
+{
+	return (is_valid_minus(map, i, j) && is_valid_plus(map, i, j));
 }
 
 bool	has_valid_walls(const char *scene_file_path)

@@ -6,7 +6,7 @@
 #    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/23 20:04:24 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/23 21:06:17 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)init_game.c \
+					$(DIR_SRC)raycasting.c \
+					$(DIR_SRC)wall_hit_calc.c \
+					$(DIR_SRC)draw_wall.c \
 					$(DIR_SRC)movement/move.c \
 					$(DIR_SRC)movement/rotate.c \
 					$(DIR_SRC)utils/rgba.c \
@@ -45,7 +48,7 @@ MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
 .NOTPARALLEL: # Force disabling of Parallel execution of Rules
 
-all:			glfw_lib announce_system $(MLX) $(LIBFT) $(NAME) 
+all:			announce_system $(MLX) $(LIBFT) $(NAME) # glfw_lib
 
 announce_system:
 	@echo You are using the Unix Makefile!
@@ -80,7 +83,7 @@ install_brew:
 				brew update
 
 run:			all
-				./$(NAME) scene_descriptions/valid/0.cub
+				./$(NAME) scene_descriptions/valid/3.cub
 
 norm:
 				@printf $(CYAN)"Checking Norminette on $(dir $(LIBFT))\n"$(RESET)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 16:11:34 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:04:22 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,22 +186,17 @@ int		parser(
 			t_scene_description *scene_description
 			);
 
-void	print_data(struct s_vectors *vectors);
-
 void	init_game(t_game *game, t_scene_description *scene_desc);
+void	raycasting_loop(void *bundle);
+
+void	init_wall_hit_calc(t_raycasting_calc *cast, t_game *game);
+void	wall_hit_calc(t_raycasting_calc *cast, t_scene_description *scene_desc);
+
+void	draw_wall(t_raycasting_calc *cast, t_game *game, int ray_iter);
 
 /* MOVEMENT */
 /* move */
-void	move_left_right(
-			struct s_vectors *vectors,
-			char **map,
-			mlx_t *mlx_ptr
-			);
-void	move_forward_back(
-			struct s_vectors *vectors,
-			char **map,
-			mlx_t *mlx_ptr
-			);
+void	check_movement(struct s_vectors *vectors, char **map, mlx_t *mlx_ptr);
 /* rotate */
 void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr);
 

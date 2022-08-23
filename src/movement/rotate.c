@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 16:10:46 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 16:10:56 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:04:03 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static inline void	rotate_left(
 	* cos(-ROTSPEED) - vectors->camera_plane[Y] * sin(-ROTSPEED);
 	vectors->camera_plane[Y] = old_camera_plane[X] * sin(-ROTSPEED) \
 	+ vectors->camera_plane[Y] * cos(-ROTSPEED);
-	print_data(vectors);
 }
 
 static inline void	rotate_right(
@@ -41,7 +40,6 @@ static inline void	rotate_right(
 	* cos(ROTSPEED) - vectors->camera_plane[Y] * sin(ROTSPEED);
 	vectors->camera_plane[Y] = old_camera_plane[X] * sin(ROTSPEED) \
 	+ vectors->camera_plane[Y] * cos(ROTSPEED);
-	print_data(vectors);
 }
 
 void	check_rotation(struct s_vectors *vectors, mlx_t *mlx_ptr)

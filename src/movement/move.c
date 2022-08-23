@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 16:09:23 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 16:10:05 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:03:47 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	move_left_right(
 		move(vectors->player_position[Y]
 			+ (vectors->player_direction[X] * MOVESPEED),
 			vectors->player_position[X], map, vectors);
-		print_data(vectors);
 	}
 	if (mlx_is_key_down(mlx_ptr, MLX_KEY_A))
 	{
@@ -44,7 +43,6 @@ void	move_left_right(
 		move(vectors->player_position[Y]
 			- (vectors->player_direction[X] * MOVESPEED),
 			vectors->player_position[X], map, vectors);
-		print_data(vectors);
 	}
 }
 
@@ -60,7 +58,6 @@ void	move_forward_back(
 			vectors->player_position[Y]
 			+ (vectors->player_direction[Y] * MOVESPEED),
 			vectors->player_position[X], map, vectors);
-		print_data(vectors);
 	}
 	if (mlx_is_key_down(mlx_ptr, MLX_KEY_S))
 	{
@@ -70,6 +67,11 @@ void	move_forward_back(
 		move(vectors->player_position[Y]
 			- (vectors->player_direction[Y] * MOVESPEED),
 			vectors->player_position[X], map, vectors);
-		print_data(vectors);
 	}
+}
+
+void	check_movement(struct s_vectors *vectors, char **map, mlx_t *mlx_ptr)
+{
+	move_forward_back(vectors, map, mlx_ptr);
+	move_left_right(vectors, map, mlx_ptr);
 }

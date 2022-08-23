@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:55:36 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:26:43 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:32:52 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static inline void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
+static inline void	ray_calc(
+	t_raycasting_calc *cast, t_game *game, int ray_iter)
 {
 	cast->camera_plane_part = (ray_iter * 2 / (double)SCREENWIDTH) - 1;
 	cast->ray_vector[X] = game->vectors.player_direction[X]
@@ -31,7 +32,8 @@ static inline void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
 		cast->tile_border_distance[Y] = fabs(1 / cast->ray_vector[Y]);
 }
 
-static inline void	put_floor_ceiling(mlx_image_t *mlx_img, t_scene_description *scene_desc)
+static inline void	put_floor_ceiling(
+	mlx_image_t *mlx_img, t_scene_description *scene_desc)
 {
 	t_square_data	square;
 
@@ -47,9 +49,10 @@ static inline void	put_floor_ceiling(mlx_image_t *mlx_img, t_scene_description *
 	put_square(&square);
 }
 
+/* variable "ray_iter" is equal to "x" in 42docs tutorial */
 void	raycasting_loop(void *bundle)
 {
-	static int					ray_iter;	// x
+	static int					ray_iter;
 	static t_raycasting_calc	cast;
 	t_game						*game;
 	t_scene_description			*scene_desc;

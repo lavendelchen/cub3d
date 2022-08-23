@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 21:04:22 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:42:20 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,13 @@ typedef struct s_player
 	enum e_direction	direction;
 }	t_player;
 
+/**
+ * @brief 
+ * @param map_content x and y start at upper left corner.
+ * that means y increases in south direction,
+ * and x increases in east direction.
+ * 
+ */
 typedef struct s_scene_description
 {
 	char		*textures[4];

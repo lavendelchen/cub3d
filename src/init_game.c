@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/24 00:27:27 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 00:37:04 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static inline void	init_directions_we_ea(
 
 static inline void	init_music(char *start_texture)
 {
+	if (!MUSIC)
+		return ;
 	if (ft_strstr(start_texture, "flag"))
 		system("afplay ./music/nyan-cat.mp3 &");
 	else if (ft_strstr(start_texture, "arcade"))

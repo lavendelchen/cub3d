@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:53:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/24 00:37:21 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 01:20:34 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	free_at_window_close(void *arg)
 	mlx_delete_texture(bundle->game->wall[SO]);
 	mlx_delete_texture(bundle->game->wall[WE]);
 	mlx_delete_texture(bundle->game->wall[EA]);
-	if (MUSIC)
-		system("pkill afplay");
 }
 
 void	close_at_esc(mlx_key_data_t key_data, void *arg)

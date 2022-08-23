@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/24 00:29:35 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 01:25:46 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int	main(int argc, const char *argv[])
 		return (put_error_msg("Error\nMlx hook couldn't be added\n"));
 	mlx_loop(game.mlx_ptr);
 	mlx_terminate(game.mlx_ptr);
+	if (MUSIC)
+		kill_music();
 	return (EXIT_SUCCESS);
 }

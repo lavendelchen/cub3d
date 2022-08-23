@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/24 00:37:04 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 01:15:44 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,6 @@ static inline void	init_directions_we_ea(
 		vectors->camera_plane[X] = 0;
 		vectors->camera_plane[Y] = FOV;
 	}
-}
-
-static inline void	init_music(char *start_texture)
-{
-	if (!MUSIC)
-		return ;
-	if (ft_strstr(start_texture, "flag"))
-		system("afplay ./music/nyan-cat.mp3 &");
-	else if (ft_strstr(start_texture, "arcade"))
-		system("afplay ./music/fun-disco.mp3 &");
-	else if (ft_strstr(start_texture, "cloud"))
-		system("afplay ./music/peaceful-garden.mp3 &");
-	else if (ft_strstr(start_texture, "ground"))
-		system("afplay ./music/droplets-in-a-cave.mp3 &");
 }
 
 /*

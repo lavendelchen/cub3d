@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/24 00:10:20 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/24 01:26:43 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 /* Modifiable stuff to modify the game! */
 
 /** @brief make true if you want fun little music effect :D */
-# define MUSIC true 
+# define MUSIC false
 
 enum e_screensize
 {
@@ -219,5 +219,9 @@ int		put_error_msg(char *msg);
 void	paste_png(t_game *game, char *png);
 void	put_square(t_square_data *square);
 void	paste_texture(mlx_texture_t *tex, t_game *game);
+
+/* MUSIC */
+void	init_music(char *start_texture);
+void	kill_music(void);
 
 #endif

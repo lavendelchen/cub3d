@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile_Unix.mk                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/23 23:38:33 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/08/24 01:16:11 by shaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)init_game.c \
+					$(DIR_SRC)music.c \
 					$(DIR_SRC)raycasting/raycasting.c \
 					$(DIR_SRC)raycasting/wall_hit_calc.c \
 					$(DIR_SRC)raycasting/draw_wall.c \

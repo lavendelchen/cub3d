@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:26:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/22 19:23:53 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:25:32 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define ALLOC_ERROR "Error\nAllocation Error\n"
 # define ARG_NULL_ERROR "Error\nArgument is NULL\n"
-# define NON_READABLE_FILE_ERROR "Error\nFile is not existent / readable\n"
+# define NON_READABLE_FILE_ERROR "Error\nFile is not existent / invalid\n"
 # define INVALID_MAP_ERROR "Error\nInvalid Map in .cub file\n"
 # define INVALID_IDENTIFIER_ERROR "Error\nInvalid Identifier in .cub file\n"
 # define INVALID_COLOR_ERROR "Error\nInvalid Color in .cub file\n"

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:03:53 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:26:49 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:26:49 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static int	tex_rgba(t_texture_calc *tex, mlx_texture_t *wall)
 {

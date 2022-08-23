@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:55:36 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:58:18 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:26:43 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static inline void	ray_calc(t_raycasting_calc *cast, t_game *game, int ray_iter)
 {

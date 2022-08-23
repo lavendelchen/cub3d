@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 16:53:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/22 21:06:29 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:35:11 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	free_at_window_close(void *arg)
 	mlx_delete_texture(bundle->game->wall[SO]);
 	mlx_delete_texture(bundle->game->wall[WE]);
 	mlx_delete_texture(bundle->game->wall[EA]);
+}
+
+int	put_error_msg(char *msg)
+{
+	ft_putstr_fd(msg, STDERR_FILENO);
+	return (EXIT_FAILURE);
 }

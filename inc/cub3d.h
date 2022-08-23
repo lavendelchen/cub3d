@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 22:20:46 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 22:35:23 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int		rgba(int r, int g, int b, int a);
 /* Close Utils */
 void	close_at_esc(mlx_key_data_t key_data, void *arg);
 void	free_at_window_close(void *arg);
+int		put_error_msg(char *msg);
 /* Draw Utils */
 void	paste_png(t_game *game, char *png);
 void	put_square(t_square_data *square);

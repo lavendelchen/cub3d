@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:26:18 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/08/23 19:25:32 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:04:07 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,25 @@ char	**get_map(char *scene_file_path);
 /* get_scene_description */
 int		set_map_from_content(char **content, t_scene_description *scene_desc);
 int		set_textures_and_colors_from_content(
-		char ***scene_content, t_scene_description *scene_desc
-);
+			char ***scene_content, t_scene_description *scene_desc
+			);
 bool	is_valid_color_description(char *desc);
 int		set_floor_color(
-		t_scene_description *scene_description,
-		int r, int g, int b
-);
+			t_scene_description *scene_description,
+			int r, int g, int b
+			);
 int		set_ceiling_color(
-		t_scene_description *scene_description,
-		int r, int g, int b
-);
+			t_scene_description *scene_description,
+			int r, int g, int b
+			);
+
+bool	has_valid_walls(const char *scene_file_path);
 
 /* utils.c */
 bool	free_map_return(char *map[], bool return_value);
 void	print_error_exit(char *error_message, int exit_code, void *to_free);
 bool	is_in_map(const char *line);
 bool	has_player(char *line);
-
 
 char	**get_scene_file_content(const char *scene_file_path);
 bool	is_readable_file(const char *path_to_file);

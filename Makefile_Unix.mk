@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile_Unix.mk                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/02 17:10:24 by shaas             #+#    #+#              #
-#    Updated: 2022/08/22 20:13:58 by shaas            ###   ########.fr        #
+#    Updated: 2022/08/23 16:12:04 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBFT_FLAGS =		$(LIBFT)
 
 SRC			=		$(DIR_SRC)main.c \
 					$(DIR_SRC)init_game.c \
-					$(DIR_SRC)check_movement_rotation.c \
+					$(DIR_SRC)movement/move.c \
+					$(DIR_SRC)movement/rotate.c \
 					$(DIR_SRC)utils/rgba.c \
 					$(DIR_SRC)utils/close_utils.c \
 					$(DIR_SRC)utils/draw_utils.c \
@@ -43,7 +44,7 @@ MLX			=		$(DIR_LIB)MLX42/libmlx.a
 
 .NOTPARALLEL: # Force disabling of Parallel execution of Rules
 
-all:			announce_system $(MLX) $(LIBFT) $(NAME) #glfw_lib
+all:			glfw_lib announce_system $(MLX) $(LIBFT) $(NAME) 
 
 announce_system:
 	@echo You are using the Unix Makefile!

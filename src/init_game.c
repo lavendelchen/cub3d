@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 20:09:31 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/22 20:59:10 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 16:12:56 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static bool	init_directions_no_so(int starting_direction, struct s_vectors *vectors)
+static inline bool	init_directions_no_so(
+	int starting_direction, t_vectors *vectors
+	)
 {
 	if (starting_direction == NO)
 	{
@@ -33,7 +35,9 @@ static bool	init_directions_no_so(int starting_direction, struct s_vectors *vect
 	return (false);
 }
 
-static void	init_directions_we_ea(int starting_direction, struct s_vectors *vectors)
+static inline void	init_directions_we_ea(
+	int starting_direction, t_vectors *vectors
+	)
 {
 	if (starting_direction == WE)
 	{

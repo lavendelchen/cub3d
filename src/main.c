@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 16:31:08 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 16:31:56 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,8 @@ void	raycasting_loop(void *bundle)
 		draw_wall(&cast, game, ray_iter);
 		ray_iter++;
 	}
-	check_forward_back_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
-	check_left_right_movement(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
+	move_forward_back(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
+	move_left_right(&(game->vectors), scene_desc->map_content, game->mlx_ptr);
 	check_rotation(&(game->vectors), game->mlx_ptr);
 }
 

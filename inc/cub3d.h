@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tschmitt <tschmitt@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 16:11:34 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:56:29 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int		parser(
 
 void	print_data(struct s_vectors *vectors);
 
+void	raycasting_loop(void *bundle);
 void	init_game(t_game *game, t_scene_description *scene_desc);
 
 /* MOVEMENT */

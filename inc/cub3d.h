@@ -6,7 +6,7 @@
 /*   By: shaas <shaas@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:04:41 by shaas             #+#    #+#             */
-/*   Updated: 2022/08/23 20:56:34 by shaas            ###   ########.fr       */
+/*   Updated: 2022/08/23 21:04:22 by shaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,6 @@ int		parser(
 			const char *scene_description_file_path,
 			t_scene_description *scene_description
 			);
-
-void	print_data(struct s_vectors *vectors);
 
 void	init_game(t_game *game, t_scene_description *scene_desc);
 void	raycasting_loop(void *bundle);

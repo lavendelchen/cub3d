@@ -32,8 +32,8 @@
 
 enum e_screensize
 {
-	SCREENWIDTH = 1920,
-	SCREENHEIGHT = 1080
+	SCREENWIDTH = 1080,
+	SCREENHEIGHT = 720
 };
 
 /** @brief remove the [0.] and you have the angle of the field of vision */
